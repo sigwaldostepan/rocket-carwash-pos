@@ -128,13 +128,15 @@ export const MainSidebar = () => {
               Array.from({ length: 5 }).map((_, i) => (
                 <SidebarMenuSkeleton key={i} />
               ))}
-            {!isPending && role === "cashier"
+            {role === "cashier"
               ? cashierNavigations.map((nav) => (
                   <MainSidebarItem key={nav.key} item={nav} />
                 ))
-              : ownerNavigations.map((nav) => (
-                  <MainSidebarItem key={nav.key} item={nav} />
-                ))}
+              : role === "owner"
+                ? ownerNavigations.map((nav) => (
+                    <MainSidebarItem key={nav.key} item={nav} />
+                  ))
+                : null}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
