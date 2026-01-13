@@ -79,7 +79,18 @@ const ownerNavigations = [
     key: "owner-expense",
     title: "Pengeluaran",
     icon: ArrowDownLeft,
-    children: [],
+    children: [
+      {
+        key: "owner-expense-list",
+        path: paths.app.expenses.index,
+        title: "List pengeluaran",
+      },
+      {
+        key: "owner-expense-create",
+        path: paths.app.expenses.category,
+        title: "Kategori pengeluaran",
+      },
+    ],
   },
   {
     key: "owner-report",
