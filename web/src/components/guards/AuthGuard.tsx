@@ -17,7 +17,6 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     return <PageLoader />;
   }
 
-  console.log({ data });
   if (!data) {
     toast.error("Kamu belum login");
     router.replace(paths.auth.login.getPath(pathname));
