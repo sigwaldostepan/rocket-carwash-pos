@@ -27,56 +27,58 @@ export const Header = ({ title }: HeaderProps) => {
   };
 
   return (
-    <header className="sticky top-0 flex h-16 w-full items-center justify-between border-b px-4">
-      <div className="flex items-center space-x-2">
-        <SidebarTrigger />
-        <Separator className="h-4!" orientation="vertical" />
-        {typeof title === "string" ? (
-          <h1 className="text-base font-medium">{title}</h1>
-        ) : (
-          title
-        )}
-      </div>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <Avatar>
-              <AvatarFallback className="bg-primary text-primary-foreground">
-                {initialName}
-              </AvatarFallback>
-            </Avatar>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-56 p-0" align="end">
-          <div className="flex flex-col gap-2 p-2">
-            <div className="flex items-center gap-2 p-2">
+    <header className="bg-background sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b px-4">
+      <div className="container mx-auto flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <SidebarTrigger />
+          <Separator className="h-4!" orientation="vertical" />
+          {typeof title === "string" ? (
+            <h1 className="text-base font-medium">{title}</h1>
+          ) : (
+            title
+          )}
+        </div>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="ghost" size="icon" className="rounded-full">
               <Avatar>
                 <AvatarFallback className="bg-primary text-primary-foreground">
                   {initialName}
                 </AvatarFallback>
               </Avatar>
-              <div className="flex flex-col">
-                <p className="text-sm font-medium">{data?.user.name}</p>
-                <p className="text-muted-foreground text-xs">
-                  {data?.user.email}
-                </p>
-                <p className="text-muted-foreground text-xs">
-                  {data?.user.role}
-                </p>
-              </div>
-            </div>
-            <Separator />
-            <Button
-              variant="ghost"
-              className="w-full justify-start"
-              onClick={handleLogout}
-            >
-              <LogOut className="mr-2" />
-              Logout
             </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
+          </PopoverTrigger>
+          <PopoverContent className="w-56 p-0" align="end">
+            <div className="flex flex-col gap-2 p-2">
+              <div className="flex items-center gap-2 p-2">
+                <Avatar>
+                  <AvatarFallback className="bg-primary text-primary-foreground">
+                    {initialName}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <p className="text-sm font-medium">{data?.user.name}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {data?.user.email}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {data?.user.role}
+                  </p>
+                </div>
+              </div>
+              <Separator />
+              <Button
+                variant="ghost"
+                className="w-full justify-start"
+                onClick={handleLogout}
+              >
+                <LogOut className="mr-2" />
+                Logout
+              </Button>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
     </header>
   );
 };
