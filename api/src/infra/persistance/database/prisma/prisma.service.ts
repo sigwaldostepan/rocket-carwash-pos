@@ -14,7 +14,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
       throw 'Missing DATABASE_URL environment variable';
     }
 
-    const adapter = new PrismaPg({ url: connectionString });
+    const adapter = new PrismaPg({ connectionString });
 
     super({ adapter });
   }

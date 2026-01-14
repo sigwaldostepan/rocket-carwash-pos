@@ -1,11 +1,14 @@
-import { registerAs } from '@nestjs/config';
+import { ConfigType, registerAs } from '@nestjs/config';
 
 export const env = {
   // Environment
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
 
-  // DB
+  // DB ORM
+  APP_ORM: process.env.APP_ORM,
+
+  // Prisma
   DATABASE_URL: process.env.DATABASE_URL,
 
   // TypeORM
@@ -27,3 +30,6 @@ export const env = {
 };
 
 export const envConfig = registerAs('env', () => env);
+
+export const envKey = envConfig.KEY;
+export type ENV_KEY = ConfigType<typeof envConfig>;
