@@ -5,6 +5,7 @@ import { AUTH_TOKEN_KEY } from "@/features/auth/constants";
 
 export const authClient = createAuthClient({
   baseURL: env.NEXT_PUBLIC_API_URL,
+  basePath: "/api/auth",
   fetchOptions: {
     credentials: "omit",
     auth: {

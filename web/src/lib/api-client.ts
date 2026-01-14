@@ -1,7 +1,7 @@
 import { env } from "@/config/env";
 import axios from "axios";
 
-const baseURL = env.NEXT_PUBLIC_API_URL;
+const baseURL = `${env.NEXT_PUBLIC_API_URL}/api`;
 
 export const apiClient = axios.create({
   baseURL,
