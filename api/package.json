@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "prebuild": "pnpm prisma generate",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "dotenv -e .env -- nest start",
@@ -18,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:generate": "dotenv -e .env.development -- pnpm prisma generate",
+    "db:generate": "dotenv -e .env.development -- pnpm prisma generate --schema=prisma/prisma.schema",
     "db:studio": "dotenv -e .env.development -- pnpm prisma studio",
     "vercel-build": "nest build"
   },
