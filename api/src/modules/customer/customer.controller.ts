@@ -1,44 +1,53 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
-import { FindCustomersDto } from './dtos/find-customer.dto';
-import { CustomerService } from './customer.service';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
+import { Roles } from '@thallesp/nestjs-better-auth';
+import { Role } from 'generated/prisma/enums';
 import { paginateResponse } from '../../common/helpers';
+import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dtos/create-customer.dto';
+import { FindCustomersDto } from './dtos/find-customers.dto';
 import { UpdateCustomerDto } from './dtos/update-customer.dto';
+import { BatchDeleteCustomerDto } from './dtos/batch-delete-customer.dto';
 
+@Roles([Role.cashier, Role.owner])
 @Controller('customers')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Get()
-  public async findCustomers(@Query() findCustomersDto: FindCustomersDto) {
-    const { page, limit } = findCustomersDto;
+  public async findMany(@Query() dto: FindCustomersDto) {
+    const { page, limit } = dto;
 
-    const { customers, total } = await this.customerService.findCustomers(findCustomersDto);
+    const { customers, total } = await this.customerService.findMany(dto);
 
     return paginateResponse(customers, page, limit, total);
   }
 
   @Get(':id')
-  public async findCustomer(@Param('id') id: string) {
-    const customer = await this.customerService.findCustomerById(id);
+  public async findById(@Param('id', ParseUUIDPipe) id: string) {
+    const customer = await this.customerService.findById(id);
 
     return customer;
   }
 
   @Post()
-  public async createCustomer(@Body() createCustomerDto: CreateCustomerDto) {
-    const updatedCustomer = await this.customerService.createCustomer(createCustomerDto);
+  public async create(@Body() dto: CreateCustomerDto) {
+    const updatedCustomer = await this.customerService.create(dto);
 
     return updatedCustomer;
   }
 
   @Put(':id')
-  public async updateCustomer(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-    return await this.customerService.updateCustomer(id, updateCustomerDto);
+  public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateCustomerDto) {
+    return await this.customerService.update(id, dto);
   }
 
   @Delete(':id')
-  public async deleteCustomer(@Param('id') id: string) {
-    return await this.customerService.deleteCustomer(id);
+  public async delete(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.customerService.delete(id);
+  }
+
+  @Post('/batch-delete')
+  public async batchDelete(@Body() dto: BatchDeleteCustomerDto) {
+    return await this.customerService.batchDelete(dto);
   }
 }

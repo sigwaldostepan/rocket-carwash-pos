@@ -54,6 +54,7 @@
     "winston": "^3.19.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.28.5",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
@@ -85,7 +86,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -94,6 +95,12 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/src/$1",
+      "^generated/(.*)$": "<rootDir>/generated/$1",
+      "^@thallesp/nestjs-better-auth$": "<rootDir>/test/__mocks__/@thallesp/nestjs-better-auth.ts"
+    },
+    "preset": "ts-jest"
   }
 }

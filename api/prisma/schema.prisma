@@ -14,12 +14,12 @@ enum Role {
 }
 
 model Customer {
-  id           String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  code         String?       @db.VarChar(255)
-  name         String?       @db.VarChar(255)
-  phone_number String?       @db.VarChar(255)
-  point        Int?
-  transaction  Transaction[]
+  id          String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  code        String        @db.VarChar(255)
+  name        String        @db.VarChar(255)
+  phoneNumber String        @map("phone_number") @db.VarChar(255)
+  point       Int           @default(0)
+  transaction Transaction[]
 
   @@map("customer")
 }
@@ -46,29 +46,29 @@ model ExpenseCategory {
 }
 
 model Item {
-  id                 String              @id(map: "PK_d3c0c71f23e7adcf952a1d13423") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name               String              @db.VarChar
-  price              Decimal             @db.Decimal
-  isRedeemable       Boolean             @default(false)
-  isGetPoint         Boolean             @default(false)
-  canBeComplimented  Boolean             @default(false)
-  transaction_detail TransactionDetail[]
+  id                String              @id(map: "PK_d3c0c71f23e7adcf952a1d13423") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name              String              @db.VarChar
+  price             Decimal             @db.Decimal
+  isRedeemable      Boolean             @default(false)
+  isGetPoint        Boolean             @default(false)
+  canBeComplimented Boolean             @default(false)
+  transactionDetail TransactionDetail[]
 
   @@map("item")
 }
 
 model Transaction {
-  id                 String              @id(map: "PK_89eadb93a89810556e1cbcd6ab9") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  invoiceNo          String              @db.VarChar
-  paymentMethod      String?             @db.VarChar
-  isCompliment       Boolean             @default(false)
-  createdAt          DateTime            @default(now()) @db.Timestamptz(6)
-  customerId         String?             @db.Uuid
-  complimentValue    Decimal             @default(0) @db.Decimal
-  transTotal         Decimal             @default(0) @db.Decimal
-  isNightShift       Boolean             @default(false)
-  customer           Customer?           @relation(fields: [customerId], references: [id], onUpdate: NoAction, map: "FK_16ead8467f1f71ac7232aa46ad3")
-  transaction_detail TransactionDetail[]
+  id                String              @id(map: "PK_89eadb93a89810556e1cbcd6ab9") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  invoiceNo         String              @db.VarChar
+  paymentMethod     String?             @db.VarChar
+  isCompliment      Boolean             @default(false)
+  createdAt         DateTime            @default(now()) @db.Timestamptz(6)
+  customerId        String?             @db.Uuid
+  complimentValue   Decimal             @default(0) @db.Decimal
+  transTotal        Decimal             @default(0) @db.Decimal
+  isNightShift      Boolean             @default(false)
+  customer          Customer?           @relation(fields: [customerId], references: [id], onUpdate: NoAction, map: "FK_16ead8467f1f71ac7232aa46ad3")
+  transactionDetail TransactionDetail[]
 
   @@map("transaction")
 }

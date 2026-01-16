@@ -159,7 +159,7 @@ export class TransactionService {
     let customer = null;
 
     if (createTransactionDto.customerId) {
-      customer = await this.custService.findCustomerById(createTransactionDto.customerId);
+      customer = await this.custService.findById(createTransactionDto.customerId);
     }
 
     const dtoItemsId = createTransactionDto.items.map((dtoItem) => dtoItem.itemId);
