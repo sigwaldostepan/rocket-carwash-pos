@@ -6,6 +6,7 @@ import { ValidationPipe } from './common/pipes/validation.pipe';
 import { env } from './config/env.config';
 import { WinstonModule } from 'nest-winston';
 import { loggerOptions } from './infra/logger/logger.config';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 const ALLOWED_ORIGIN = env.ALLOWED_ORIGIN?.split(',') ?? [];
 
@@ -25,6 +26,7 @@ async function bootstrap() {
   });
   app.use(express.json());
   app.use(cookieParser());
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(env.PORT ?? 4000);
