@@ -15,7 +15,7 @@ DROP TABLE "migrations";
 DROP TABLE "users";
 
 -- CreateTable
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS "user" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE "user" (
 );
 
 -- CreateTable
-CREATE TABLE "session" (
+CREATE TABLE IF NOT EXISTS "session" (
     "id" TEXT NOT NULL,
     "expiresAt" TIMESTAMP(3) NOT NULL,
     "token" TEXT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE "session" (
 );
 
 -- CreateTable
-CREATE TABLE "account" (
+CREATE TABLE IF NOT EXISTS "account" (
     "id" TEXT NOT NULL,
     "accountId" TEXT NOT NULL,
     "providerId" TEXT NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE "account" (
 );
 
 -- CreateTable
-CREATE TABLE "verification" (
+CREATE TABLE IF NOT EXISTS "verification" (
     "id" TEXT NOT NULL,
     "identifier" TEXT NOT NULL,
     "value" TEXT NOT NULL,

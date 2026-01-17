@@ -1,7 +1,7 @@
-CREATE EXTENSION "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- CreateTable
-CREATE TABLE "customer" (
+CREATE TABLE IF NOT EXISTS "customer" (
     "id" UUID NOT NULL DEFAULT uuid_generate_v4(),
     "code" VARCHAR(255),
     "name" VARCHAR(255),
@@ -12,7 +12,7 @@ CREATE TABLE "customer" (
 );
 
 -- CreateTable
-CREATE TABLE "expense" (
+CREATE TABLE IF NOT EXISTS "expense" (
     "id" UUID NOT NULL DEFAULT uuid_generate_v4(),
     "description" VARCHAR(255),
     "amount" DECIMAL NOT NULL DEFAULT 0,
@@ -23,7 +23,7 @@ CREATE TABLE "expense" (
 );
 
 -- CreateTable
-CREATE TABLE "expense_category" (
+CREATE TABLE IF NOT EXISTS "expense_category" (
     "id" UUID NOT NULL DEFAULT uuid_generate_v4(),
     "name" VARCHAR NOT NULL,
     "description" VARCHAR(255),
@@ -33,7 +33,7 @@ CREATE TABLE "expense_category" (
 );
 
 -- CreateTable
-CREATE TABLE "item" (
+CREATE TABLE IF NOT EXISTS "item" (
     "id" UUID NOT NULL DEFAULT uuid_generate_v4(),
     "name" VARCHAR NOT NULL,
     "price" DECIMAL NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE "item" (
 );
 
 -- CreateTable
-CREATE TABLE "migrations" (
+CREATE TABLE IF NOT EXISTS "migrations" (
     "id" SERIAL NOT NULL,
     "timestamp" BIGINT NOT NULL,
     "name" VARCHAR NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE "migrations" (
 );
 
 -- CreateTable
-CREATE TABLE "transaction" (
+CREATE TABLE IF NOT EXISTS "transaction" (
     "id" UUID NOT NULL DEFAULT uuid_generate_v4(),
     "invoiceNo" VARCHAR NOT NULL,
     "paymentMethod" VARCHAR,
@@ -69,7 +69,7 @@ CREATE TABLE "transaction" (
 );
 
 -- CreateTable
-CREATE TABLE "transaction_detail" (
+CREATE TABLE IF NOT EXISTS "transaction_detail" ( 
     "id" UUID NOT NULL DEFAULT uuid_generate_v4(),
     "transactionId" UUID,
     "itemId" UUID,
@@ -80,7 +80,7 @@ CREATE TABLE "transaction_detail" (
 );
 
 -- CreateTable
-CREATE TABLE "users" (
+CREATE TABLE IF NOT EXISTS "users" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255),
     "email" VARCHAR(255),
@@ -91,14 +91,27 @@ CREATE TABLE "users" (
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
 
--- AddForeignKey
-ALTER TABLE "expense" ADD CONSTRAINT "FK_42eea5debc63f4d1bf89881c10a" FOREIGN KEY ("categoryId") REFERENCES "expense_category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+DO $$
+BEGIN
 
--- AddForeignKey
-ALTER TABLE "transaction" ADD CONSTRAINT "FK_16ead8467f1f71ac7232aa46ad3" FOREIGN KEY ("customerId") REFERENCES "customer"("id") ON DELETE SET NULL ON UPDATE NO ACTION;
+    -- 1. Expense -> Expense Category
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'FK_42eea5debc63f4d1bf89881c10a') THEN
+        ALTER TABLE "expense" ADD CONSTRAINT "FK_42eea5debc63f4d1bf89881c10a" FOREIGN KEY ("categoryId") REFERENCES "expense_category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+    END IF;
 
--- AddForeignKey
-ALTER TABLE "transaction_detail" ADD CONSTRAINT "FK_46ace7094c8fa92dc33f82c9aa6" FOREIGN KEY ("transactionId") REFERENCES "transaction"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+    -- 2. Transaction -> Customer
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'FK_16ead8467f1f71ac7232aa46ad3') THEN
+        ALTER TABLE "transaction" ADD CONSTRAINT "FK_16ead8467f1f71ac7232aa46ad3" FOREIGN KEY ("customerId") REFERENCES "customer"("id") ON DELETE SET NULL ON UPDATE NO ACTION;
+    END IF;
 
--- AddForeignKey
-ALTER TABLE "transaction_detail" ADD CONSTRAINT "FK_dc321d3ba426d32789f3d74aba6" FOREIGN KEY ("itemId") REFERENCES "item"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+    -- 3. Transaction Detail -> Transaction
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'FK_46ace7094c8fa92dc33f82c9aa6') THEN
+        ALTER TABLE "transaction_detail" ADD CONSTRAINT "FK_46ace7094c8fa92dc33f82c9aa6" FOREIGN KEY ("transactionId") REFERENCES "transaction"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+    END IF;
+
+    -- 4. Transaction Detail -> Item
+    IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'FK_dc321d3ba426d32789f3d74aba6') THEN
+        ALTER TABLE "transaction_detail" ADD CONSTRAINT "FK_dc321d3ba426d32789f3d74aba6" FOREIGN KEY ("itemId") REFERENCES "item"("id") ON DELETE CASCADE ON UPDATE NO ACTION;
+    END IF;
+
+END $$;
