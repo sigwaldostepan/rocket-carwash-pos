@@ -1,7 +1,10 @@
 import { env } from "@/config/env";
+import { AUTH_TOKEN_KEY } from "@/features/auth/constants";
 import axios, { AxiosError } from "axios";
 
 const baseURL = `${env.NEXT_PUBLIC_API_URL}/api`;
+
+const bearerToken = localStorage.getItem(AUTH_TOKEN_KEY) ?? "";
 
 export const apiClient = axios.create({
   baseURL,
@@ -9,6 +12,7 @@ export const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    Authorization: `Bearer ${bearerToken}`,
   },
 });
 

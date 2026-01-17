@@ -14,7 +14,7 @@ import { LoggerModule } from './infra/logger/logger.module';
 
 @Module({
   imports: [
-    AuthModule.forRoot({ auth, disableGlobalAuthGuard: true }),
+    AuthModule.forRoot({ auth }),
     ConfigModule.forRoot({
       envFilePath: ['env.development, .env'],
       isGlobal: true,

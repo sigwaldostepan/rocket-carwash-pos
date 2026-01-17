@@ -7,11 +7,11 @@ export const authClient = createAuthClient({
   baseURL: env.NEXT_PUBLIC_API_URL,
   basePath: "/api/auth",
   fetchOptions: {
-    credentials: "omit",
     auth: {
       type: "Bearer",
       token: () => {
         const token = localStorage.getItem(AUTH_TOKEN_KEY);
+        console.log({ token });
 
         return token ?? undefined;
       },

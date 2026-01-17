@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
+import { AUTH_TOKEN_KEY } from "@/features/auth/constants";
 
 type HeaderProps = {
   title: string | React.ReactNode;
@@ -24,6 +25,7 @@ export const Header = ({ title }: HeaderProps) => {
 
   const handleLogout = () => {
     authClient.signOut();
+    localStorage.removeItem(AUTH_TOKEN_KEY);
   };
 
   return (
