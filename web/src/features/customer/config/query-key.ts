@@ -10,7 +10,7 @@ const standardizeParams = (params: GetCustomerParams) => {
 
 export const CUSTOMER_QUERY_KEY = {
   all: ["customers"],
-  detail: (id: string) => ["customer", id],
+  detail: (id: string) => ["customers", id],
   params: (params: GetCustomerParams) => [
     "customers",
     standardizeParams(params),
