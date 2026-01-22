@@ -58,7 +58,7 @@ export const ResponsiveDialog = ({
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
         {!!trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-        <DialogContent className="md:max-w-md">
+        <DialogContent className="max-h-[80dvh] overflow-auto md:max-w-md">
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             {description ? (
@@ -81,7 +81,7 @@ export const ResponsiveDialog = ({
             <DrawerDescription>{description}</DrawerDescription>
           ) : null}
         </DrawerHeader>
-        {children}
+        <div className="px-4">{children}</div>
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">
