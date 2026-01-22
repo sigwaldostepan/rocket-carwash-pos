@@ -11,7 +11,6 @@ export const authClient = createAuthClient({
       type: "Bearer",
       token: () => {
         const token = localStorage.getItem(AUTH_TOKEN_KEY);
-        console.log({ token });
 
         return token ?? undefined;
       },

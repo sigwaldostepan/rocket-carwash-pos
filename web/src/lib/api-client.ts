@@ -4,16 +4,21 @@ import axios, { AxiosError } from "axios";
 
 const baseURL = `${env.NEXT_PUBLIC_API_URL}/api`;
 
-const bearerToken = localStorage.getItem(AUTH_TOKEN_KEY) ?? "";
-
 export const apiClient = axios.create({
   baseURL,
   withCredentials: false,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    Authorization: `Bearer ${bearerToken}`,
   },
+});
+
+apiClient.interceptors.request.use((config) => {
+  if (typeof window !== undefined) {
+    config.headers.Authorization = `Bearer ${localStorage.getItem(AUTH_TOKEN_KEY)}`;
+  }
+
+  return config;
 });
 
 type ApiErrorResponse = {
