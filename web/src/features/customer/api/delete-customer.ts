@@ -22,8 +22,8 @@ export const useDeleteCustomer = ({
 
   return useMutation({
     mutationFn: deleteCustomer,
-    onSuccess: async (...args) => {
-      await queryClient.refetchQueries({
+    onSuccess: (...args) => {
+      queryClient.invalidateQueries({
         queryKey: CUSTOMER_QUERY_KEY.all,
       });
 

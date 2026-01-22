@@ -26,8 +26,8 @@ export const useEditCustomer = ({ mutationConfig }: UseEditCustomerProps) => {
 
   return useMutation({
     mutationFn: editCustomer,
-    onSuccess: async (...args) => {
-      await queryClient.refetchQueries({
+    onSuccess: (...args) => {
+      queryClient.invalidateQueries({
         queryKey: CUSTOMER_QUERY_KEY.all,
       });
 

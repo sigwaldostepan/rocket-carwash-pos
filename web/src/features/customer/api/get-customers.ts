@@ -37,7 +37,7 @@ export const getCustomersQueryOptions = (params: GetCustomerParams) => {
 
 type UseGetCustomersOptions = {
   params: GetCustomerParams;
-  queryConfig?: QueryConfig<typeof getCustomer>;
+  queryConfig?: QueryConfig<typeof getCustomersQueryOptions>;
 };
 
 export const useGetCustomers = ({

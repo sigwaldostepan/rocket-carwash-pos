@@ -23,8 +23,8 @@ export const useCreateCustomer = ({
 
   return useMutation({
     mutationFn: createCustomer,
-    onSuccess: async (...args) => {
-      await queryClient.invalidateQueries({
+    onSuccess: (...args) => {
+      queryClient.invalidateQueries({
         queryKey: CUSTOMER_QUERY_KEY.all,
       });
 

@@ -25,10 +25,7 @@ export const CustomerForm = ({ isLoading, onSubmit }: CustomerFormProps) => {
     isLoading || !form.formState.isValid || !form.formState.isDirty;
 
   return (
-    <form
-      className="space-y-4 px-4 md:px-0"
-      onSubmit={form.handleSubmit(onSubmit)}
-    >
+    <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
       <FieldSet>
         <FieldGroup>
           <Controller

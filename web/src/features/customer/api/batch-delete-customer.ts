@@ -27,8 +27,8 @@ export const useBatchDeleteCustomer = ({
 
   return useMutation({
     mutationFn: batchDeleteCustomer,
-    onSuccess: async (...args) => {
-      await queryClient.invalidateQueries({
+    onSuccess: (...args) => {
+      queryClient.invalidateQueries({
         queryKey: CUSTOMER_QUERY_KEY.all,
       });
 
