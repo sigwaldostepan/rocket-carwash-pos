@@ -131,7 +131,7 @@ export const MainSidebar = () => {
           <span className="cursor-default font-bold">Rocket Carwash</span>
         </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-background">
         <SidebarGroup>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarMenu>

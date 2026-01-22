@@ -38,9 +38,9 @@ export const MainSidebarItem = ({ item }: { item: NavItem }) => {
           <Link
             href={item.path!}
             className={cn(
-              "hover:bg-sidebar-accent/70 hover:text-sidebar-accent-foreground transition-colors",
+              "hover:bg-secondary/70! hover:text-secondary-foreground! transition-colors",
               isActive &&
-                "bg-sidebar-accent text-sidebar-accent-foreground hover:bg-sidebar-accent",
+                "bg-secondary text-secondary-foreground! hover:bg-secondary!",
             )}
           >
             <item.icon />
@@ -61,7 +61,7 @@ export const MainSidebarItem = ({ item }: { item: NavItem }) => {
     >
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton className="hover:bg-accent/70! hover:text-accent-foreground flex items-center justify-between rounded-md transition-colors">
+          <SidebarMenuButton className="hover:bg-secondary/70! hover:text-secondary-foreground! flex items-center justify-between rounded-md transition-colors">
             <span className="flex items-center gap-2">
               <item.icon size={16} />
               <span>{item.title}</span>
@@ -83,9 +83,9 @@ export const MainSidebarItem = ({ item }: { item: NavItem }) => {
                   <SidebarMenuButton
                     asChild
                     className={cn(
-                      "hover:bg-accent/70 hover:text-accent-foreground rounded-md transition-colors",
+                      "hover:bg-secondary/70! hover:text-secondary-foreground! rounded-md transition-colors",
                       isChildActive &&
-                        "bg-sidebar-accent text-sidebar-accent-foreground hover:bg-sidebar-accent",
+                        "bg-secondary text-secondary-foreground! hover:bg-secondary!",
                     )}
                   >
                     <Link href={child.path}>
