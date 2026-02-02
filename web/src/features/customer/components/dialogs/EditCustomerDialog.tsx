@@ -2,8 +2,9 @@
 
 import { ResponsiveDialog } from "@/components/shared";
 import { getApiErrorMessage } from "@/lib/api-client";
-import { useDialog, useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { CustomerWithTransactionCount } from "@/types/api/customer";
+import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import { useEditCustomer } from "../../api/edit-customer";
 import {
@@ -11,13 +12,14 @@ import {
   useEditCustomerForm,
 } from "../../forms/edit-customer";
 import { CustomerForm } from "../CustomerForm";
-import { FormProvider } from "react-hook-form";
 
 export const EditCustomerDialog = () => {
   const {
     data: customer,
     isOpen,
-    mode,
+    key,
+    closeDialog,
+    setIsOpen,
   } = useDialog<CustomerWithTransactionCount>();
 
   const form = useEditCustomerForm({
@@ -37,12 +39,9 @@ export const EditCustomerDialog = () => {
         const message = getApiErrorMessage(err);
 
         toast.error(message);
-        console.error(err);
       },
     },
   });
-
-  const { closeDialog } = useDialogActions();
 
   const onSubmit = (data: EditCustomerSchema) => {
     if (!customer?.id) {
@@ -52,14 +51,14 @@ export const EditCustomerDialog = () => {
     mutate({ id: customer.id, data });
   };
 
-  if (!isOpen || mode !== "edit") {
+  if (!isOpen || key !== DIALOG_KEY.customer.edit) {
     return null;
   }
 
   return (
     <ResponsiveDialog
       open={isOpen}
-      onOpenChange={closeDialog}
+      onOpenChange={() => setIsOpen(DIALOG_KEY.customer.edit, false)}
       title={`Edit ${customer?.name}`}
     >
       <FormProvider {...form}>

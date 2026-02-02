@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { Item } from "@/types/api/item";
 import { formatRupiah } from "@/utils/currency";
 import { Edit, Trash } from "lucide-react";
@@ -14,14 +14,14 @@ type ItemCardProps = {
 };
 
 export const ItemCard = ({ item }: ItemCardProps) => {
-  const { openDialog } = useDialogActions();
+  const { openDialog } = useDialog<Item>();
 
   const onEditClick = () => {
-    openDialog("edit", item);
+    openDialog(DIALOG_KEY.item.edit, item);
   };
 
   const onDeleteClick = () => {
-    openDialog("delete", item);
+    openDialog(DIALOG_KEY.item.delete, item);
   };
 
   const hasBadge = [

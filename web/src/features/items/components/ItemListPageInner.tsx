@@ -7,10 +7,17 @@ import {
   PageHeaderHeading,
 } from "@/components/shared";
 import { Button } from "@/components/ui/button";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { useDebounce } from "@/hooks/use-debounce";
 import { getApiErrorMessage } from "@/lib/api-client";
-import { useDialog, useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { Item } from "@/types/api/item";
 import { Plus, Search } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useDeleteItem } from "../api/delete-item";
 import { useGetItems } from "../api/get-items";
@@ -20,13 +27,6 @@ import {
   DeleteItemAlert,
   EditItemDialog,
 } from "../components/dialogs";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
-import { useState } from "react";
-import { useDebounce } from "@/hooks/use-debounce";
 
 export const ItemListPageInner = () => {
   const [search, setSearch] = useState("");
@@ -54,11 +54,15 @@ export const ItemListPageInner = () => {
     },
   });
 
-  const { data: dialogData } = useDialog<Item>();
-  const { openDialog, closeDialog } = useDialogActions();
+  const {
+    data: dialogData,
+    openDialog,
+    closeDialog,
+    setIsOpen,
+  } = useDialog<Item>();
 
   const onCreateClick = () => {
-    openDialog("create", null);
+    openDialog(DIALOG_KEY.item.create, null);
   };
 
   const onDeleteConfirm = () => {

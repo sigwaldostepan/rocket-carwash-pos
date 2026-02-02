@@ -1,7 +1,7 @@
 "use client";
 
 import { ResponsiveDialog } from "@/components/shared";
-import { useDialog, useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import { useCreateItem } from "../../api/create-item";
@@ -9,8 +9,7 @@ import { CreateItemSchema, useCreateItemForm } from "../../forms/create-item";
 import { ItemForm } from "../ItemForm";
 
 export const CreateItemDialog = () => {
-  const { isOpen, mode } = useDialog();
-  const { closeDialog } = useDialogActions();
+  const { isOpen, key, closeDialog } = useDialog();
 
   const form = useCreateItemForm({});
   const { mutate } = useCreateItem({
@@ -28,7 +27,7 @@ export const CreateItemDialog = () => {
     mutate(data);
   };
 
-  if (!isOpen || mode !== "create") {
+  if (!isOpen || key !== DIALOG_KEY.item.create) {
     return null;
   }
 

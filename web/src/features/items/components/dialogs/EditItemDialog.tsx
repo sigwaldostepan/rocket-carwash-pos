@@ -1,18 +1,17 @@
 "use client";
 
 import { ResponsiveDialog } from "@/components/shared";
-import { useDialog, useDialogActions } from "@/stores/dialog";
+import { getApiErrorMessage } from "@/lib/api-client";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { Item } from "@/types/api/item";
 import { FormProvider } from "react-hook-form";
+import { toast } from "sonner";
+import { useEditItem } from "../../api/edit-item";
 import { EditItemSchema, useEditItemForm } from "../../forms/edit-item";
 import { ItemForm } from "../ItemForm";
-import { useEditItem } from "../../api/edit-item";
-import { getApiErrorMessage } from "@/lib/api-client";
-import { toast } from "sonner";
 
 export const EditItemDialog = () => {
-  const { isOpen, mode, data: dialogData } = useDialog<Item>();
-  const { closeDialog } = useDialogActions();
+  const { isOpen, key, data: dialogData, closeDialog } = useDialog<Item>();
 
   const { mutate } = useEditItem({
     mutationConfig: {
@@ -45,7 +44,7 @@ export const EditItemDialog = () => {
     });
   };
 
-  if (!isOpen || mode !== "edit") {
+  if (!isOpen || key !== DIALOG_KEY.item.edit) {
     return null;
   }
 

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/input-group";
 import { usePaginationQuery } from "@/hooks/use-pagination-query";
 import { getApiErrorMessage } from "@/lib/api-client";
-import { useDialog, useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { CustomerWithTransactionCount } from "@/types/api/customer";
 import { Plus, Search } from "lucide-react";
 import { toast } from "sonner";
@@ -44,8 +44,11 @@ export const CustomerListPageInner = () => {
   });
 
   // dialog related
-  const { data: dialogData } = useDialog<CustomerWithTransactionCount>();
-  const { openDialog, closeDialog } = useDialogActions();
+  const {
+    data: dialogData,
+    openDialog,
+    closeDialog,
+  } = useDialog<CustomerWithTransactionCount>();
 
   // actions
   const { mutate } = useDeleteCustomer({
@@ -64,7 +67,7 @@ export const CustomerListPageInner = () => {
   });
 
   const onCreateClick = () => {
-    openDialog("create", null);
+    openDialog(DIALOG_KEY.customer.create, null);
   };
 
   const onDeleteConfirm = () => {

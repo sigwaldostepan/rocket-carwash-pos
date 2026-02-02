@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useDialog, useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 
 type DeleteCustomerAlertProps = {
   onConfirm: () => void;
@@ -19,15 +19,17 @@ type DeleteCustomerAlertProps = {
 export const DeleteCustomerAlert = ({
   onConfirm,
 }: DeleteCustomerAlertProps) => {
-  const { isOpen, mode } = useDialog();
-  const { closeDialog } = useDialogActions();
+  const { isOpen, key, setIsOpen } = useDialog();
 
-  if (!isOpen || mode !== "delete") {
+  if (!isOpen || key !== DIALOG_KEY.customer.delete) {
     return null;
   }
 
   return (
-    <AlertDialog open={isOpen} onOpenChange={closeDialog}>
+    <AlertDialog
+      open={isOpen}
+      onOpenChange={() => setIsOpen(DIALOG_KEY.customer.delete, false)}
+    >
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>

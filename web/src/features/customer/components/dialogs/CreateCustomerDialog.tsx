@@ -8,14 +8,13 @@ import {
 } from "../../forms/create-customer";
 import { FormProvider } from "react-hook-form";
 import { useCreateCustomer } from "../../api/create-customer";
-import { useDialog, useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/lib/api-client";
 
 export const CreateCustomerDialog = () => {
   const form = useCreateCustomerForm({});
-  const { isOpen, mode } = useDialog();
-  const { closeDialog } = useDialogActions();
+  const { isOpen, key, closeDialog, setIsOpen } = useDialog();
 
   const { mutate, isPending: isLoading } = useCreateCustomer({
     mutationConfig: {
@@ -36,14 +35,14 @@ export const CreateCustomerDialog = () => {
     mutate(data);
   };
 
-  if (!isOpen || mode !== "create") {
+  if (!isOpen || key !== DIALOG_KEY.customer.create) {
     return null;
   }
 
   return (
     <ResponsiveDialog
       open={isOpen}
-      onOpenChange={closeDialog}
+      onOpenChange={() => setIsOpen(DIALOG_KEY.customer.create, false)}
       title="Tambah Customer"
       description="Tambahkan customer baru"
     >

@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useDialogActions } from "@/stores/dialog";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { CustomerWithTransactionCount } from "@/types/api/customer";
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, Gift, MoreVertical, Trash2 } from "lucide-react";
@@ -68,15 +68,14 @@ export const customerColumn: ColumnDef<CustomerWithTransactionCount>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const { openDialog } = useDialogActions();
+      const { openDialog } = useDialog();
 
       const onEditClick = () => {
-        console.log(row.original);
-        openDialog("edit", row.original);
+        openDialog(DIALOG_KEY.customer.edit, row.original);
       };
 
       const onDeleteClick = () => {
-        openDialog("delete", row.original);
+        openDialog(DIALOG_KEY.customer.delete, row.original);
       };
 
       return (
