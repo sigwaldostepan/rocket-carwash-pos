@@ -1,18 +1,12 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import { PaymentMethodSelector } from "./PaymentMethodSelector";
-import { cn } from "@/lib/utils";
-import { formatRupiah } from "@/utils/currency";
-import { Separator } from "@/components/ui/separator";
-import { PaymentCurrencyInput } from "./PaymentCurrencyInput";
-import { QuickAmountButtons } from "./QuickAmountButtons";
-import { ChangeDisplay } from "./ChangeDisplay";
-import { NightShiftToggle } from "./NightShiftToggle";
-import { useCheckoutPayment } from "@/features/transaction/hooks/use-checkout-payment";
 import {
   DialogClose,
   DialogDescription,
@@ -20,7 +14,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useCheckoutPayment } from "@/features/transaction/hooks/use-checkout-payment";
+import { cn } from "@/lib/utils";
+import { formatRupiah } from "@/utils/currency";
+import { ChangeDisplay } from "./ChangeDisplay";
+import { NightShiftToggle } from "./NightShiftToggle";
+import { PaymentCurrencyInput } from "./PaymentCurrencyInput";
+import { PaymentMethodSelector } from "./PaymentMethodSelector";
+import { QuickAmountButtons } from "./QuickAmountButtons";
 
 type CheckoutPaymentFormProps = {
   onClose: () => void;
@@ -113,10 +115,12 @@ export const CheckoutPaymentForm = ({
         </Card>
 
         {/* Night Shift Toggle */}
-        <NightShiftToggle
-          checked={state.isNightShift ?? false}
-          onCheckedChange={actions.setNightShift}
-        />
+        {!state.isComplimentPayment && (
+          <NightShiftToggle
+            checked={state.isNightShift ?? false}
+            onCheckedChange={actions.setNightShift}
+          />
+        )}
       </div>
       <DialogFooter className="flex-row">
         <DialogClose asChild>
