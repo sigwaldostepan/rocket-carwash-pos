@@ -6,7 +6,7 @@ import { admin as adminPlugin, bearer, createAccessControl } from 'better-auth/p
 import { defaultStatements, adminAc } from 'better-auth/plugins/admin/access';
 import { env } from 'src/config/env.config';
 
-const trustedOrigins = env.ALLOWED_ORIGIN.split(',') ?? [''];
+const trustedOrigins = env.ALLOWED_ORIGIN?.split(',') ?? [''];
 
 const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
