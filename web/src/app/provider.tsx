@@ -1,5 +1,6 @@
 "use client";
 
+import { TouchProvider } from "@/components/ui/hybrid-tooltip";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { queryConfig } from "@/lib/react-query";
@@ -22,8 +23,12 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
             descriptionClassName: "text-muted-foreground!",
           }}
         />
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
+        <TouchProvider>{children}</TouchProvider>
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          position="left"
+          buttonPosition="bottom-left"
+        />
       </SidebarProvider>
     </QueryClientProvider>
   );

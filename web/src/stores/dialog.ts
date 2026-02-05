@@ -15,10 +15,23 @@ export const DIALOG_KEY = {
     edit: "EDIT-CUSTOMER",
     delete: "DELETE-CUSTOMER",
   },
+
+  // Transaction
+  transaction: {
+    redeemPoint: "REDEEM-POINT",
+    pickCustomer: "PICK-CUSTOMER",
+    payment: "PAYMENT",
+    printInvoice: "PRINT-INVOICE",
+    delete: "DELETE-TRANSACTION",
+  },
 } as const;
 
-export type DialogKey =
-  (typeof DIALOG_KEY)[keyof typeof DIALOG_KEY][keyof (typeof DIALOG_KEY)[keyof typeof DIALOG_KEY]];
+// helper type to extract all possible dialog key
+type NestedValues<T> = T extends object
+  ? { [K in keyof T]: T[K] extends object ? NestedValues<T[K]> : T[K] }[keyof T]
+  : T;
+
+export type DialogKey = NestedValues<typeof DIALOG_KEY>;
 
 type DialogState = {
   isOpen: boolean;

@@ -7,8 +7,8 @@ const AppLayout = async ({ children }: { children: React.ReactNode }) => {
     <Suspense fallback={<PageLoader />}>
       <div className="flex h-full w-full">
         <MainSidebar />
-        <div className="relative h-full w-full">
-          <main className="h-full w-full">{children}</main>
+        <div className="relative h-full min-w-0 flex-1">
+          <main className="h-full w-full overflow-x-auto">{children}</main>
         </div>
       </div>
     </Suspense>

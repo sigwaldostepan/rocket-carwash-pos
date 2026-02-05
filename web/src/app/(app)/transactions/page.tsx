@@ -1,7 +1,4 @@
-export default function TransactionPage() {
-  return (
-    <div>
-      <h1>Transaction</h1>
-    </div>
-  );
-}
+export {
+  TransactionListPage as default,
+  metadata,
+} from "@/features/transaction/pages/TransactionListPage";

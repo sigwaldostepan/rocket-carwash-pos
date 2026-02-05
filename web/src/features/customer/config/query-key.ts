@@ -15,4 +15,9 @@ export const CUSTOMER_QUERY_KEY = {
     "customers",
     standardizeParams(params),
   ],
+  infinite: (params: GetCustomerParams) => [
+    "customers",
+    "infinite",
+    standardizeParams(params),
+  ],
 };

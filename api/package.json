@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:generate": "dotenv -e .env.development -- pnpm prisma generate --schema=prisma/prisma.schema",
+    "db:generate": "dotenv -e .env.development -- pnpm prisma generate --schema=prisma/schema.prisma",
     "db:studio": "dotenv -e .env.development -- pnpm prisma studio",
     "vercel-build": "nest build"
   },
@@ -48,6 +48,7 @@
     "express": "^5.1.0",
     "nest-winston": "^1.10.2",
     "pg": "^8.14.0",
+    "react-to-print": "^3.2.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.21",

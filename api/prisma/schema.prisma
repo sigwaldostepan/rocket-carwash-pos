@@ -65,7 +65,8 @@ model Transaction {
   createdAt         DateTime            @default(now()) @db.Timestamptz(6)
   customerId        String?             @db.Uuid
   complimentValue   Decimal             @default(0) @db.Decimal
-  transTotal        Decimal             @default(0) @db.Decimal
+  subtotal          Decimal             @default(0) @db.Decimal
+  total             Decimal             @default(0) @db.Decimal
   isNightShift      Boolean             @default(false)
   customer          Customer?           @relation(fields: [customerId], references: [id], onUpdate: NoAction, map: "FK_16ead8467f1f71ac7232aa46ad3")
   transactionDetail TransactionDetail[]

@@ -27,7 +27,7 @@ export const usePaginationQuery = () => {
     limit: number;
   };
   const setPagination = ({ page, limit }: SetPaginationParams) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams.toString());
 
     params.set("page", String(page));
     params.set("limit", String(limit));

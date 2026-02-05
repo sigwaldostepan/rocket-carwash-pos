@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { Prisma } from 'generated/prisma/client';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { PrismaService } from 'src/infra/persistance/database/prisma/prisma.service';
@@ -52,8 +52,10 @@ export class CustomerService {
     }
   }
 
-  public async findById(id: string) {
-    const customer = await this.prisma.customer.findUnique({
+  public async findById(id: string, tx?: PrismaService | Prisma.TransactionClient) {
+    const prisma = tx ?? this.prisma;
+
+    const customer = await prisma.customer.findUnique({
       where: { id },
       select: CUSTOMER_BASE_SELECT,
     });
@@ -162,6 +164,56 @@ export class CustomerService {
       this.logger.error('Error batch deleting customers', { error });
       throw error;
     }
+  }
+
+  public async addPoints(customerId: string, points: number, tx?: PrismaService | Prisma.TransactionClient) {
+    const prisma = tx ?? this.prisma;
+
+    const customer = await tx.customer.findUnique({
+      where: {
+        id: customerId,
+      },
+    });
+
+    if (!customer) {
+      throw new NotFoundException('Customer tidak ditemukan');
+    }
+
+    return prisma.customer.update({
+      where: { id: customerId },
+      data: {
+        point: customer.point + points,
+      },
+    });
+  }
+
+  public async deductPoints(customerId: string, points: number, tx?: PrismaService | Prisma.TransactionClient) {
+    const prisma = tx ?? this.prisma;
+
+    const customer = await prisma.customer.findUnique({
+      where: {
+        id: customerId,
+      },
+    });
+
+    if (!customer) {
+      throw new NotFoundException('Customer tidak ditemukan');
+    }
+
+    if (customer.point < points) {
+      throw new UnprocessableEntityException(
+        `Point customer tidak cukup. Dibutuhkan: ${points}, tersedia: ${customer.point}`,
+      );
+    }
+
+    return prisma.customer.update({
+      where: {
+        id: customerId,
+      },
+      data: {
+        point: customer.point - points,
+      },
+    });
   }
 
   private constructWhere(dto: FindCustomersDto) {

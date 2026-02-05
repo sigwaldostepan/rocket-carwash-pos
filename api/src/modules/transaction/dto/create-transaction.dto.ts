@@ -3,14 +3,23 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsBoolean,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
-  IsUUID,
   Min,
   ValidateNested,
 } from 'class-validator';
+
+// didn't use prisma's enum since there's legacy data from client's previous POS system
+enum PaymentMethod {
+  CASH = 'Tunai',
+  QRIS = 'QRIS',
+  EDC = 'EDC',
+  Transfer = 'Transfer',
+  Compliment = 'Komplimen',
+}
 
 export class TransactionItemDto {
   @IsNotEmpty({ message: 'ID item gk boleh kosong' })
@@ -28,10 +37,9 @@ export class TransactionItemDto {
 }
 
 export class CreateTransactionDto {
-  @IsUUID()
   @IsOptional()
   @IsString()
-  customerId: string;
+  customerId?: string;
 
   @IsArray()
   @ArrayNotEmpty()
@@ -40,8 +48,8 @@ export class CreateTransactionDto {
   items: TransactionItemDto[];
 
   @IsNotEmpty({ message: 'Metode pembayaran gk boleh kosong' })
-  @IsString()
-  paymentMethod: string;
+  @IsEnum(PaymentMethod, { message: 'Metode pembayaran tidak valid' })
+  paymentMethod: PaymentMethod;
 
   @IsOptional()
   @IsBoolean()

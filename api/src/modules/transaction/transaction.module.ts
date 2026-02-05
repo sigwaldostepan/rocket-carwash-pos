@@ -1,16 +1,24 @@
 import { Module } from '@nestjs/common';
-import { TransactionService } from './transaction.service';
-import { TransactionController } from './transaction.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Transaction, TransactionDetail } from './entities';
-import { Item } from '../item/entities/item.entity';
+import { PrismaModule } from 'src/infra/persistance/database/prisma/prisma.module';
 import { CustomerModule } from '../customer/customer.module';
-import { Customer } from '../customer/entities/customer.entity';
-import { ExpenseModule } from '../expense/expense.module';
+import { ComplimentTransactionStrategy } from './strategy/compliment-transaction.strategy';
+import { StandardTransactionStrategy } from './strategy/standard-transaction.strategy';
+import { RedeemTransactionStrategy } from './strategy/redeem-transaction.strategy';
+import { TransactionController } from './transaction.controller';
+import { TransactionService } from './transaction.service';
+import { TransactionFactoryService } from './services/transaction-factory.service';
+import { InvoiceService } from './services/invoice.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Transaction, TransactionDetail, Item, Customer]), CustomerModule, ExpenseModule],
+  imports: [PrismaModule, CustomerModule],
   controllers: [TransactionController],
-  providers: [TransactionService],
+  providers: [
+    TransactionService,
+    StandardTransactionStrategy,
+    RedeemTransactionStrategy,
+    ComplimentTransactionStrategy,
+    TransactionFactoryService,
+    InvoiceService,
+  ],
 })
 export class TransactionModule {}

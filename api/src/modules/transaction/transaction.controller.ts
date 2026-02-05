@@ -1,48 +1,32 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, Res } from '@nestjs/common';
-import { TransactionService } from './transaction.service';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { paginateResponse } from 'src/common/helpers';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { FindTransactionDto } from './dto/find-transaction.dto';
-import { Response } from 'express';
+import { TransactionService } from './transaction.service';
 
 @Controller('transactions')
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
   @Get()
-  public async findTransactions(@Query() findTransactionDto: FindTransactionDto) {
-    const { transactions, total } = await this.transactionService.findTransactions(findTransactionDto);
+  public async findMany(@Query() findTransactionDto: FindTransactionDto) {
+    const { transactions, total } = await this.transactionService.findMany(findTransactionDto);
 
     return paginateResponse(transactions, findTransactionDto.page, findTransactionDto.limit, total);
   }
 
-  @Get('/summary')
-  public async getTransactionSummary(@Query() findTransactionDto: FindTransactionDto) {
-    return await this.transactionService.getTransactionSummary(findTransactionDto);
-  }
-
-  @Get('/export-excel')
-  public async exportTransactions(@Query() exportTransactionExcelDto: FindTransactionDto, @Res() res: Response) {
-    exportTransactionExcelDto.limit = 1000000;
-    exportTransactionExcelDto.page = 1;
-
-    const buffer = await this.transactionService.exportTransactionsExcel(exportTransactionExcelDto);
-
-    return res.header('Content-Disposition', 'attachment; filename=anlikodullendirme.xlsx').send(buffer);
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.transactionService.findTransactionById(id);
+    return this.transactionService.findById(id);
   }
 
   @Post()
   create(@Body() createTransactionDto: CreateTransactionDto) {
-    return this.transactionService.createTransaction(createTransactionDto);
+    return this.transactionService.create(createTransactionDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.transactionService.deleteTransaction(id);
+    return this.transactionService.delete(id);
   }
 }

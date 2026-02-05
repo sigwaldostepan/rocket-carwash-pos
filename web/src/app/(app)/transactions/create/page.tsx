@@ -1,3 +1,4 @@
-export default function CreateTransactionPage() {
-  return <p>ok</p>;
-}
+export {
+  CreateTransactionPage as default,
+  metadata,
+} from "@/features/transaction/pages/CreateTransactionPage";
