@@ -28,6 +28,8 @@ export const authClient = createAuthClient({
   ],
 });
 
+export type AuthRole = "cashier" | "owner";
+
 type ErrorTypes = Partial<
   Record<keyof typeof authClient.$ERROR_CODES, { id: string }>
 >;

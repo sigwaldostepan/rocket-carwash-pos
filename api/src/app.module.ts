@@ -20,7 +20,6 @@ import { LoggerModule } from './infra/logger/logger.module';
       isGlobal: true,
       load: [envConfig],
     }),
-    TypeOrmModule,
     PrismaModule,
     CustomerModule,
     ItemModule,

@@ -7,7 +7,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { id } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import * as React from "react";
 import { type DateRange } from "react-day-picker";
@@ -18,12 +20,14 @@ type DatePickerRangeProps = Omit<
 > & {
   date: DateRange | undefined;
   setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+  buttonClassName?: string;
   placeholder?: string;
 };
 
 export const DatePickerRange = ({
   date,
   setDate,
+  buttonClassName,
   placeholder = "Pilih tanggal",
   ...props
 }: DatePickerRangeProps) => {
@@ -33,17 +37,17 @@ export const DatePickerRange = ({
         <Button
           variant="outline"
           id="date-picker-range"
-          className="justify-start px-2.5 font-normal"
+          className={cn("justify-start px-2.5 font-normal", buttonClassName)}
         >
           <CalendarIcon />
           {date?.from ? (
             date.to ? (
-              <>
-                {format(date.from, "LLL dd, y")} -{" "}
-                {format(date.to, "LLL dd, y")}
-              </>
+              <span className="hidden md:block">
+                {format(date.from, "LLL dd, y", { locale: id })} -{" "}
+                {format(date.to, "LLL dd, y", { locale: id })}
+              </span>
             ) : (
-              format(date.from, "LLL dd, y")
+              format(date.from, "LLL dd, y", { locale: id })
             )
           ) : (
             <span>{placeholder}</span>

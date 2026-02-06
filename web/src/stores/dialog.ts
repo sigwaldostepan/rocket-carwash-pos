@@ -16,6 +16,20 @@ export const DIALOG_KEY = {
     delete: "DELETE-CUSTOMER",
   },
 
+  // Expense
+  expense: {
+    create: "CREATE-EXPENSE",
+    edit: "EDIT-EXPENSE",
+    delete: "DELETE-EXPENSE",
+  },
+
+  // Expense Category
+  expenseCategory: {
+    create: "CREATE-EXPENSE-CATEGORY",
+    edit: "EDIT-EXPENSE-CATEGORY",
+    delete: "DELETE-EXPENSE-CATEGORY",
+  },
+
   // Transaction
   transaction: {
     redeemPoint: "REDEEM-POINT",
