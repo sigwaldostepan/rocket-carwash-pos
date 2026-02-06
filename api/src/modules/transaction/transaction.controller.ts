@@ -3,7 +3,10 @@ import { paginateResponse } from 'src/common/helpers';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { FindTransactionDto } from './dto/find-transaction.dto';
 import { TransactionService } from './transaction.service';
+import { Roles } from '@thallesp/nestjs-better-auth';
+import { Role } from 'generated/prisma/enums';
 
+@Roles([Role.cashier, Role.owner])
 @Controller('transactions')
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
