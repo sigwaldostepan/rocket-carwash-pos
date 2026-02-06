@@ -13,6 +13,11 @@ enum Role {
   user
 }
 
+enum ExpenseCategoryStatus {
+  active
+  inactive
+}
+
 model Customer {
   id          String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   code        String        @db.VarChar(255)
@@ -30,7 +35,7 @@ model Expense {
   amount           Decimal          @default(0) @db.Decimal
   createdAt        DateTime         @default(now()) @db.Timestamptz(6)
   categoryId       String?          @db.Uuid
-  expense_category ExpenseCategory? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_42eea5debc63f4d1bf89881c10a")
+  expenseCategory  ExpenseCategory? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_42eea5debc63f4d1bf89881c10a")
 
   @@map("expense")
 }
@@ -39,6 +44,7 @@ model ExpenseCategory {
   id          String    @id(map: "PK_478b68a9314d8787fb3763a2298") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name        String    @db.VarChar
   description String?   @db.VarChar(255)
+  status      ExpenseCategoryStatus @default(active)
   createdAt   DateTime  @default(now()) @db.Timestamptz(6)
   expense     Expense[]
 
