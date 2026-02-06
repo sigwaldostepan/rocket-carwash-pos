@@ -133,12 +133,14 @@ export class ComplimentTransactionStrategy implements TransactionStrategy<Valida
         const customer = dto.customerId ? await this.customerService.findById(dto.customerId, tx) : null;
 
         const subtotal = this.calculateSubtotal(dto.items, validatedData.items);
-        const nightShiftComplimentTotal = this.calculateNightShiftComplimentTotal(dto.items, validatedData.items);
-        const total = subtotal.sub(nightShiftComplimentTotal);
+
+        // night shift total = subtotal - night shift compliment total
+        const nightShiftComplimentAmount = this.calculateNightShiftComplimentAmount(dto.items, validatedData.items);
+        const total = subtotal.sub(nightShiftComplimentAmount);
 
         const data: Prisma.TransactionCreateInput = {
           invoiceNo,
-          complimentValue: nightShiftComplimentTotal,
+          complimentValue: nightShiftComplimentAmount,
           isCompliment: true,
           paymentMethod: dto.paymentMethod,
           isNightShift: true,
@@ -191,7 +193,7 @@ export class ComplimentTransactionStrategy implements TransactionStrategy<Valida
     }, new Prisma.Decimal(0));
   }
 
-  private calculateNightShiftComplimentTotal(dtoItems: CreateTransactionDto['items'], validatedItems: Item[]) {
+  private calculateNightShiftComplimentAmount(dtoItems: CreateTransactionDto['items'], validatedItems: Item[]) {
     return dtoItems.reduce((total, item) => {
       const matchedItem = validatedItems.find((it) => it.id === item.itemId);
 
@@ -202,8 +204,8 @@ export class ComplimentTransactionStrategy implements TransactionStrategy<Valida
         const price = new Prisma.Decimal(matchedItem.price);
         const rate = new Prisma.Decimal(NIGHT_SHIFT_COMPLIMENT_RATE);
 
-        // night shift compliment total = (price - (price * NIGHT_SHIFT_COMPLIMENT_RATE)) * quantity
-        value = price.sub(price.mul(rate)).mul(quantity);
+        // price * NIGHT_SHIFT_COMPLIMENT_RATE * quantity
+        value = price.mul(rate).mul(quantity);
       }
 
       return total.add(value);
