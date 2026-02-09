@@ -11,6 +11,7 @@ import { envConfig } from './config/env.config';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './infra/auth/auth.config';
 import { LoggerModule } from './infra/logger/logger.module';
+import { ReportModule } from './modules/report/report.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { LoggerModule } from './infra/logger/logger.module';
     TransactionModule,
     ExpenseModule,
     LoggerModule,
+    ReportModule,
   ],
   controllers: [AppController],
 })
