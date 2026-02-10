@@ -16,3 +16,23 @@ export type IncomeReport = {
   summary: IncomeSummary;
   paymentMethodSummary: IncomePaymentMethodSummary[];
 };
+
+export type ExpenseSummary = {
+  expenseCount: number;
+  totalAmount: number;
+};
+
+export type ExpenseCategorySummary = {
+  category: {
+    id: string;
+    name: string;
+  };
+  expenseCount: number;
+  total: number;
+  contributionPercent: number;
+};
+
+export type ExpenseReport = {
+  summary: ExpenseSummary;
+  categorySummary: ExpenseCategorySummary[];
+};
