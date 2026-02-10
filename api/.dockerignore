@@ -1,0 +1,29 @@
+node_modules
+dist
+generated
+
+# Environment files
+.env
+.env.*
+
+# Logs
+logs
+*.log
+
+# Tests
+test
+coverage
+**/*.spec.ts
+
+# IDE
+.vscode
+.idea
+
+# Git
+.git
+.gitignore
+
+# Misc
+README.md
+.prettierrc
+.eslintrc.js
