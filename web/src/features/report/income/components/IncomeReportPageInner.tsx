@@ -11,9 +11,10 @@ import { useGetIncomeReport } from "../api/get-income-report";
 import { useDateRangeFilter } from "@/hooks/use-date-range-filter";
 import { ArrowLeftRight, TrendingUp, Wallet } from "lucide-react";
 import { formatRupiah } from "@/utils/currency";
-import { StatCard } from "./StatCard";
+import { StatCard } from "../../components/StatCard";
 import { PaymentMethodDetail } from "./payment-method-detail/PaymentMethodDetail";
 import { DatePickerRange } from "@/components/ui/date-picker-range";
+import { ReportDetailEmptyState } from "../../components/ReportDetailEmptyState";
 
 export const IncomeReportPageInner = () => {
   const { dateRange, dateFrom, dateTo, setDateRange } = useDateRangeFilter();
@@ -67,8 +68,11 @@ export const IncomeReportPageInner = () => {
               <CardTitle>Detail Metode Pembayaran</CardTitle>
             </CardHeader>
             <CardContent>
-              {data?.paymentMethodSummary && (
+              {data?.paymentMethodSummary &&
+              data.paymentMethodSummary.length > 0 ? (
                 <PaymentMethodDetail data={data.paymentMethodSummary} />
+              ) : (
+                <ReportDetailEmptyState message="Belum ada pemasukan" />
               )}
             </CardContent>
           </Card>
