@@ -9,7 +9,7 @@
   "scripts": {
     "build:api": "cd api && pnpm run build",
     "build:web": "cd web && pnpm run build",
-    "start:api": "cd api && pnpm run start",
-    "start:web": "cd web && pnpm run start"
+    "start:api": "cd api && pnpm start:prod",
+    "start:web": "cd web && pnpm start"
   }
 }
