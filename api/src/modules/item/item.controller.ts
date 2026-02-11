@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { Roles } from '@thallesp/nestjs-better-auth';
-import { Role } from 'generated/prisma/enums';
+import { Role } from 'generated/prisma/client';
 import { CreateItemDto } from './dto/create-item.dto';
 import { FindItemsDto } from './dto/find-items.dto';
 import { UpdateItemDto } from './dto/update-item.dto';

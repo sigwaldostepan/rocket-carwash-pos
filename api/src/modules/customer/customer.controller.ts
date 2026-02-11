@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { Roles } from '@thallesp/nestjs-better-auth';
-import { Role } from 'generated/prisma/enums';
+import { Role } from 'generated/prisma/client';
 import { paginateResponse } from '../../common/helpers';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dtos/create-customer.dto';

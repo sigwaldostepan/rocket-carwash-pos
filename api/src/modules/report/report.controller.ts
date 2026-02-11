@@ -2,7 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { GetIncomeReportDto } from './dto/get-income-report.dto';
 import { ReportService } from './report.service';
 import { Roles } from '@thallesp/nestjs-better-auth';
-import { Role } from 'generated/prisma/enums';
+import { Role } from 'generated/prisma/client';
 import { GetExpenseReportDto } from './dto/get-expense-report.dto';
 
 @Roles([Role.owner])

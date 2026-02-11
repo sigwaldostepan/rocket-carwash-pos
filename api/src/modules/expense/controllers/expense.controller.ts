@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { Roles } from '@thallesp/nestjs-better-auth';
-import { Role } from 'generated/prisma/enums';
+import { Role } from 'generated/prisma/client';
 import { paginateResponse } from 'src/common/helpers';
 import { CreateExpenseDto } from '../dto/create-expense.dto';
 import { FindExpensesDto } from '../dto/find-expenses.dto';

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { Roles } from '@thallesp/nestjs-better-auth';
-import { Role } from 'generated/prisma/enums';
+import { Role } from 'generated/prisma/client';
 import { CreateExpenseCategoryDto } from '../dto/create-expense-category.dto';
 import { UpdateExpenseCategoryDto } from '../dto/update-expense-category.dto';
 import { BatchDeleteExpenseCategoryDto } from '../dto/batch-delete-expense-category.dto';

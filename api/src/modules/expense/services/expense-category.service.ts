@@ -6,7 +6,7 @@ import { EXPENSE_CATEGORY_SELECT_WITH_EXPENSE_COUNT } from '../constants/expense
 import { CreateExpenseCategoryDto } from '../dto/create-expense-category.dto';
 import { UpdateExpenseCategoryDto } from '../dto/update-expense-category.dto';
 import { BatchDeleteExpenseCategoryDto } from '../dto/batch-delete-expense-category.dto';
-import { ExpenseCategoryStatus } from 'generated/prisma/enums';
+import { ExpenseCategoryStatus } from 'generated/prisma/client';
 
 @Injectable()
 export class ExpenseCategoryService {

@@ -3,7 +3,7 @@ import { ExpenseCategoryService } from './expense-category.service';
 import { PrismaService } from 'src/infra/persistance/database/prisma/prisma.service';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { NotFoundException } from '@nestjs/common';
-import { ExpenseCategoryStatus } from 'generated/prisma/enums';
+import { ExpenseCategoryStatus } from 'generated/prisma/client';
 
 const mockPrismaService = {
   expenseCategory: {

@@ -4,7 +4,7 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { FindTransactionDto } from './dto/find-transaction.dto';
 import { TransactionService } from './transaction.service';
 import { Roles } from '@thallesp/nestjs-better-auth';
-import { Role } from 'generated/prisma/enums';
+import { Role } from 'generated/prisma/client';
 
 @Roles([Role.cashier, Role.owner])
 @Controller('transactions')
