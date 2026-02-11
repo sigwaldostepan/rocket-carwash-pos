@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
@@ -30,22 +30,22 @@ model Customer {
 }
 
 model Expense {
-  id               String           @id(map: "PK_edd925b450e13ea36197c9590fc") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  description      String?          @db.VarChar(255)
-  amount           Decimal          @default(0) @db.Decimal
-  createdAt        DateTime         @default(now()) @db.Timestamptz(6)
-  categoryId       String?          @db.Uuid
-  expenseCategory  ExpenseCategory? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_42eea5debc63f4d1bf89881c10a")
+  id              String           @id(map: "PK_edd925b450e13ea36197c9590fc") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  description     String?          @db.VarChar(255)
+  amount          Decimal          @default(0) @db.Decimal
+  createdAt       DateTime         @default(now()) @db.Timestamptz(6)
+  categoryId      String?          @db.Uuid
+  expenseCategory ExpenseCategory? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_42eea5debc63f4d1bf89881c10a")
 
   @@map("expense")
 }
 
 model ExpenseCategory {
-  id          String    @id(map: "PK_478b68a9314d8787fb3763a2298") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name        String    @db.VarChar
-  description String?   @db.VarChar(255)
+  id          String                @id(map: "PK_478b68a9314d8787fb3763a2298") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String                @db.VarChar
+  description String?               @db.VarChar(255)
   status      ExpenseCategoryStatus @default(active)
-  createdAt   DateTime  @default(now()) @db.Timestamptz(6)
+  createdAt   DateTime              @default(now()) @db.Timestamptz(6)
   expense     Expense[]
 
   @@map("expense_category")

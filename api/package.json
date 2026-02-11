@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:generate": "dotenv -e .env.development -- pnpm prisma generate --schema=prisma/schema.prisma",
     "db:studio": "dotenv -e .env.development -- pnpm prisma studio",
-    "vercel-build": "nest build"
+    "vercel-build": "prisma generate && nest build"
   },
   "dependencies": {
     "@hedystia/better-auth-typeorm": "^0.4.4",
