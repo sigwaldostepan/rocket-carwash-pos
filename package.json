@@ -5,5 +5,11 @@
   "workspaces": [
     "api",
     "web"
-  ]
+  ],
+  "scripts": {
+    "build:api": "cd api && pnpm run build",
+    "build:web": "cd web && pnpm run build",
+    "start:api": "cd api && pnpm run start",
+    "start:web": "cd web && pnpm run start"
+  }
 }
