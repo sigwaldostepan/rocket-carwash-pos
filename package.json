@@ -1,0 +1,9 @@
+{
+  "name": "rocket-carwash-pos",
+  "private": true,
+  "packageManager": "pnpm@10.11.1",
+  "workspaces": [
+    "api",
+    "web"
+  ]
+}
