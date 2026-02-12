@@ -9,112 +9,16 @@ import {
   SidebarMenu,
   SidebarMenuSkeleton,
 } from "@/components/ui/sidebar";
-import { paths } from "@/config/paths";
 import { authClient } from "@/lib/auth";
-import {
-  ArrowDownLeft,
-  BarChart3,
-  Home,
-  LucideIcon,
-  ReceiptText,
-  Tag,
-  Users2,
-} from "lucide-react";
 import Image from "next/image";
 import { MainSidebarItem } from "./MainSidebarItem";
-
-type NavItem = {
-  key: string;
-  title: string;
-  icon: LucideIcon;
-  path?: string;
-  children?: {
-    key: string;
-    title: string;
-    path: string;
-  }[];
-};
-
-const cashierNavigations = [
-  {
-    key: "cashier-home",
-    path: paths.app.home,
-    icon: Home,
-    title: "Beranda",
-  },
-  {
-    key: "cashier-transaction",
-    icon: ReceiptText,
-    title: "Transaksi",
-    children: [
-      {
-        key: "cashier-transaction-list",
-        path: paths.app.transactions.index,
-        title: "List transaksi",
-      },
-      {
-        key: "cashier-transaction-create",
-        path: paths.app.transactions.create,
-        title: "Buat transaksi",
-      },
-    ],
-  },
-  {
-    key: "cashier-item",
-    path: paths.app.items,
-    icon: Tag,
-    title: "Item",
-  },
-  {
-    key: "cashier-customer",
-    path: paths.app.customers,
-    icon: Users2,
-    title: "Pelanggan",
-  },
-] satisfies NavItem[];
-
-const ownerNavigations = [
-  ...cashierNavigations,
-  {
-    key: "owner-expense",
-    title: "Pengeluaran",
-    icon: ArrowDownLeft,
-    children: [
-      {
-        key: "owner-expense-list",
-        path: paths.app.expenses.index,
-        title: "List pengeluaran",
-      },
-      {
-        key: "owner-expense-create",
-        path: paths.app.expenses.category,
-        title: "Kategori pengeluaran",
-      },
-    ],
-  },
-  {
-    key: "owner-report",
-    title: "Laporan",
-    icon: BarChart3,
-    children: [
-      {
-        key: "owner-report-expense",
-        path: paths.app.reports.expense,
-        title: "Pengeluaran",
-      },
-      {
-        key: "owner-report-income",
-        path: paths.app.reports.income,
-        title: "Pemasukan",
-      },
-    ],
-  },
-] satisfies NavItem[];
+import { getNavigationsByRole } from "@/config/user-navigation";
 
 export const MainSidebar = () => {
   const { data, isPending } = authClient.useSession();
 
-  const role = data?.user.role;
+  const role = data?.user.role as "cashier" | "owner" | undefined;
+  const navigations = role ? getNavigationsByRole(role) : [];
 
   return (
     <Sidebar variant="sidebar">
@@ -139,15 +43,9 @@ export const MainSidebar = () => {
               Array.from({ length: 5 }).map((_, i) => (
                 <SidebarMenuSkeleton key={i} />
               ))}
-            {role === "cashier"
-              ? cashierNavigations.map((nav) => (
-                  <MainSidebarItem key={nav.key} item={nav} />
-                ))
-              : role === "owner"
-                ? ownerNavigations.map((nav) => (
-                    <MainSidebarItem key={nav.key} item={nav} />
-                  ))
-                : null}
+            {navigations.map((nav) => (
+              <MainSidebarItem key={nav.key} item={nav} />
+            ))}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

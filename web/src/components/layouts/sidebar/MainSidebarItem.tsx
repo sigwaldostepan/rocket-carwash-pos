@@ -11,20 +11,11 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { NavItem } from "@/config/user-navigation";
 import { cn } from "@/lib/utils";
-import { ChevronRight, LucideIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-type NavItem = {
-  title: string;
-  icon: LucideIcon;
-  path?: string;
-  children?: {
-    title: string;
-    path: string;
-  }[];
-};
 
 export const MainSidebarItem = ({ item }: { item: NavItem }) => {
   const pathname = usePathname();

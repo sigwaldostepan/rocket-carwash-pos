@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export const IncomeReportPage = () => {
   return (
-    <AuthGuard roles={["owner"]}>
+    <AuthGuard roles={["owner", "cashier"]}>
       <IncomeReportPageInner />
     </AuthGuard>
   );

@@ -1,26 +1,27 @@
 export const paths = {
   auth: {
     login: {
-      getPath: (redirectTo?: string) => `/login${redirectTo ? `?redirectTo=${redirectTo}` : ''}`,
+      getPath: (redirectTo?: string) =>
+        `/login${redirectTo ? `?redirectTo=${redirectTo}` : ""}`,
     },
   },
 
   app: {
-    index: '/',
-    home: '/home',
-    customers: '/customers',
-    items: '/items',
+    index: "/",
+    home: "/home",
+    customers: "/customers",
+    items: "/items",
     transactions: {
-      index: '/transactions',
-      create: '/transactions/create',
+      index: "/transactions",
+      create: "/transactions/create",
     },
     expenses: {
-      index: '/expenses',
-      category: '/expenses/categories',
+      index: "/expenses",
+      category: "/expenses/categories",
     },
     reports: {
-      expense: '/reports/expense',
-      income: '/reports/income',
+      expense: "/reports/expense",
+      income: "/reports/income",
     },
   },
 };
