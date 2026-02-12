@@ -25,25 +25,27 @@ export const TransactionItemGrid = ({
   };
 
   return (
-    <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-4">
-      {isLoading &&
-        Array.from({ length: 12 }).map((_, i) => (
-          <TransactionItemCardSkeleton key={i} />
+    <div className="@container w-full">
+      <div className="grid grid-cols-2 gap-3 @min-[440px]:grid-cols-3 @min-[680px]:grid-cols-4 @min-[980px]:grid-cols-5">
+        {isLoading &&
+          Array.from({ length: 12 }).map((_, i) => (
+            <TransactionItemCardSkeleton key={i} />
+          ))}
+        {items?.map((item) => (
+          <TransactionItemCard
+            key={item.id}
+            item={item}
+            onAddToCart={() => onAddToCart(item)}
+          />
         ))}
-      {items?.map((item) => (
-        <TransactionItemCard
-          key={item.id}
-          item={item}
-          onAddToCart={() => onAddToCart(item)}
-        />
-      ))}
-      {!isLoading && items.length < 1 && (
-        <div className="col-span-full">
-          <p className="text-muted-foreground text-center">
-            Belum ada item yang ditemukan
-          </p>
-        </div>
-      )}
+        {!isLoading && items.length < 1 && (
+          <div className="col-span-full">
+            <p className="text-muted-foreground text-center">
+              Belum ada item yang ditemukan
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

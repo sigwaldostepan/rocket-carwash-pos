@@ -19,7 +19,7 @@ export const TransactionItemCard = ({
     <Card
       onClick={onAddToCart}
       className={cn(
-        "group relative flex min-h-[140px] flex-col justify-between gap-4 p-4",
+        "group relative flex min-h-[140px] flex-col justify-between gap-4 overflow-hidden p-4",
         "cursor-pointer transition-all duration-200 ease-in-out select-none",
         "bg-card border shadow-none",
         "hover:border-primary/50 hover:bg-primary/5 hover:shadow-sm active:scale-[0.98]",

@@ -47,7 +47,7 @@ export const TransactionCartSheet = () => {
         <SheetTrigger asChild>
           <Button
             className={cn(
-              "fixed right-4 bottom-4 flex size-12 items-center justify-center rounded-full lg:hidden",
+              "fixed right-4 bottom-4 flex size-12 items-center justify-center rounded-full md:hidden",
               "hidden",
               showTriggerButton && "flex",
             )}

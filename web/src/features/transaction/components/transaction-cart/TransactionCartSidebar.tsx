@@ -40,7 +40,7 @@ export const TransactionCartSidebar = ({
   return (
     <>
       <aside
-        className={cn("hidden flex-col space-y-4 lg:flex", className)}
+        className={cn("hidden flex-col space-y-4 md:flex", className)}
         {...props}
       >
         <Card className="h-[calc(100vh-18rem)]! w-full flex-col gap-2 md:flex">
@@ -63,7 +63,7 @@ export const TransactionCartSidebar = ({
                 </Button>
                 <HybridTooltipProvider>
                   <HybridTooltip>
-                    <HybridTooltipTrigger>
+                    <HybridTooltipTrigger asChild>
                       <Button
                         size="icon"
                         variant="secondary"
