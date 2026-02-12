@@ -20,14 +20,14 @@ type DatePickerRangeProps = Omit<
 > & {
   date: DateRange | undefined;
   setDate: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
-  buttonClassName?: string;
+  triggerProps?: React.ComponentProps<typeof Button>;
   placeholder?: string;
 };
 
 export const DatePickerRange = ({
   date,
   setDate,
-  buttonClassName,
+  triggerProps,
   placeholder = "Pilih tanggal",
   ...props
 }: DatePickerRangeProps) => {
@@ -37,12 +37,16 @@ export const DatePickerRange = ({
         <Button
           variant="outline"
           id="date-picker-range"
-          className={cn("justify-start px-2.5 font-normal", buttonClassName)}
+          className={cn(
+            "justify-start px-2.5 font-normal",
+            triggerProps?.className,
+          )}
+          {...triggerProps}
         >
           <CalendarIcon />
           {date?.from ? (
             date.to ? (
-              <span className="hidden md:block">
+              <span className="hidden lg:block">
                 {format(date.from, "LLL dd, y", { locale: id })} -{" "}
                 {format(date.to, "LLL dd, y", { locale: id })}
               </span>

@@ -2,23 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  HybridTooltip,
+  HybridTooltipContent,
+  HybridTooltipProvider,
+  HybridTooltipTrigger,
+} from "@/components/ui/hybrid-tooltip";
 import { Separator } from "@/components/ui/separator";
 import { NO_CUSTOMER } from "@/constants/transaction";
-import { getApiErrorMessage } from "@/lib/api-client";
+import { CreateCustomerDialog } from "@/features/customer/components/dialogs";
 import { cn } from "@/lib/utils";
-import { DIALOG_KEY, useDialog } from "@/stores/dialog";
-import { User2 } from "lucide-react";
+import { DIALOG_KEY } from "@/stores/dialog";
+import { Plus, User2 } from "lucide-react";
 import React from "react";
-import { toast } from "sonner";
-import { useCreateTransation } from "../../api/create-transaction";
-import { createTransactionSchema } from "../../forms/create-transaction";
-import {
-  transactionStoreSelectors,
-  useTransactionCartStore,
-  useTransactionCustomerStore,
-  useTransactionPaymentStore,
-  useTransactionStore,
-} from "../../stores";
+import { useTransactionCartCheckout } from "../../hooks/use-transaction-cart";
 import { CheckoutDialog, PickCustomerDialog } from "../dialogs";
 import { TransactionCartItemList } from "./TransactionCartItemList";
 import { TransactionCartSummary } from "./TransactionCartSummary";
@@ -29,46 +26,16 @@ export const TransactionCartSidebar = ({
   className,
   ...props
 }: TransactionCartSidebarProps) => {
-  const { cartItems } = useTransactionCartStore();
-  const { customer } = useTransactionCustomerStore();
-  const { subtotalPrice, totalPrice } = useTransactionPaymentStore();
-
-  const { isOpen, key, setIsOpen, openDialog } = useDialog();
-
-  const { mutateAsync: createTransaction, isPending: isCreatingTransaction } =
-    useCreateTransation({
-      mutationConfig: {
-        onSuccess: () => {
-          toast.success("Transaksi berhasil dibuat");
-        },
-        onError: (err) => {
-          const message = getApiErrorMessage(err);
-          toast.error(message);
-        },
-      },
-    });
-
-  const openPaymentDialog = () => {
-    openDialog(DIALOG_KEY.transaction.payment, null);
-  };
-
-  const openPickCustomerDialog = () => {
-    openDialog(DIALOG_KEY.transaction.pickCustomer, null);
-  };
-
-  const onPaymentConfirm = async () => {
-    const payload = transactionStoreSelectors.getCreateTransactionPayload()(
-      useTransactionStore.getState(),
-    );
-
-    const { error, success } = createTransactionSchema.safeParse(payload);
-    if (!success) {
-      toast.error(error.message);
-      throw new Error(error.message);
-    }
-
-    return await createTransaction(payload);
-  };
+  const {
+    dialogActions,
+    customer,
+    cartItems,
+    subtotalPrice,
+    totalPrice,
+    isCreatingTransaction,
+    dialogState,
+    setCustomer,
+  } = useTransactionCartCheckout();
 
   return (
     <>
@@ -83,16 +50,34 @@ export const TransactionCartSidebar = ({
           <CardContent className="flex-1 overflow-y-auto">
             <div>
               <span className="text-muted-foreground text-xs">Customer:</span>
-              <Button
-                className="w-full truncate"
-                variant="outline"
-                onClick={openPickCustomerDialog}
-              >
-                <User2 />
-                {customer && customer !== NO_CUSTOMER
-                  ? customer.name
-                  : "Pilih customer"}
-              </Button>
+              <div className="flex w-full flex-row gap-2">
+                <Button
+                  className="flex-1 truncate"
+                  variant="outline"
+                  onClick={dialogActions.pickCustomer}
+                >
+                  <User2 />
+                  {customer && customer !== NO_CUSTOMER
+                    ? customer.name
+                    : "Pilih customer"}
+                </Button>
+                <HybridTooltipProvider>
+                  <HybridTooltip>
+                    <HybridTooltipTrigger>
+                      <Button
+                        size="icon"
+                        variant="secondary"
+                        onClick={dialogActions.customerCreate}
+                      >
+                        <Plus />
+                      </Button>
+                    </HybridTooltipTrigger>
+                    <HybridTooltipContent>
+                      Tambah customer baru
+                    </HybridTooltipContent>
+                  </HybridTooltip>
+                </HybridTooltipProvider>
+              </div>
             </div>
             <Separator className="my-4" />
             <div>
@@ -114,7 +99,7 @@ export const TransactionCartSidebar = ({
               disabled={cartItems.length === 0}
               className="w-full"
               size="lg"
-              onClick={openPaymentDialog}
+              onClick={dialogActions.payment}
             >
               Proses pembayaran
             </Button>
@@ -125,18 +110,19 @@ export const TransactionCartSidebar = ({
       {/* dialogs */}
       <CheckoutDialog
         isSubmitting={isCreatingTransaction}
-        open={isOpen && key === DIALOG_KEY.transaction.payment}
+        open={dialogState.isCheckoutDialogOpen}
         onOpenChange={(open: boolean) =>
-          setIsOpen(DIALOG_KEY.transaction.payment, open)
+          dialogState.setIsOpen(DIALOG_KEY.transaction.payment, open)
         }
-        onConfirm={onPaymentConfirm}
+        onConfirm={dialogActions.paymentConfirm}
       />
       <PickCustomerDialog
-        isOpen={isOpen && key === DIALOG_KEY.transaction.pickCustomer}
+        isOpen={dialogState.isPickCustomerDialogOpen}
         setIsOpen={(open) =>
-          setIsOpen(DIALOG_KEY.transaction.pickCustomer, open)
+          dialogState.setIsOpen(DIALOG_KEY.transaction.pickCustomer, open)
         }
       />
+      <CreateCustomerDialog onSuccess={(data) => setCustomer(data)} />
     </>
   );
 };
