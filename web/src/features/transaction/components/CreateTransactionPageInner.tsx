@@ -1,6 +1,6 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import { PageHeader, PageHeaderHeading } from "@/components/shared";
 import {
   InputGroup,
@@ -35,7 +35,7 @@ export const CreateTransactionPageInner = () => {
 
   return (
     <PageShell title="Buat Transaksi">
-      <div className="container mx-auto flex gap-6 px-4 py-6">
+      <Container className="flex gap-6">
         <section className="flex-1 space-y-6">
           <div className="space-y-4">
             <PageHeader>
@@ -58,7 +58,7 @@ export const CreateTransactionPageInner = () => {
         </section>
 
         <TransactionCartSidebar className="sticky top-24 right-0 shrink-0 md:w-72" />
-      </div>
+      </Container>
 
       {/* dialogs */}
       <ApplyRedeemPointDialog

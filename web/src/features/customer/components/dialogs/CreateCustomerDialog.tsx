@@ -11,22 +11,30 @@ import { useCreateCustomer } from "../../api/create-customer";
 import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { toast } from "sonner";
 import { getApiErrorMessage } from "@/lib/api-client";
+import { Customer } from "@/types/api/customer";
 
-export const CreateCustomerDialog = () => {
+type CreateCustomerDialogProps = {
+  onSuccess?: (customer: Customer) => void;
+};
+
+export const CreateCustomerDialog = ({
+  onSuccess,
+}: CreateCustomerDialogProps) => {
   const form = useCreateCustomerForm({});
   const { isOpen, key, closeDialog, setIsOpen } = useDialog();
 
   const { mutate, isPending: isLoading } = useCreateCustomer({
     mutationConfig: {
-      onSuccess: () => {
+      onSuccess: (data) => {
         toast.success("Customer berhasil ditambahkan");
         closeDialog();
+
+        onSuccess?.(data);
       },
       onError: (err) => {
         const message = getApiErrorMessage(err);
 
         toast.error(message);
-        console.error(err);
       },
     },
   });

@@ -1,6 +1,6 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -71,7 +71,7 @@ export const ItemListPageInner = () => {
 
   return (
     <PageShell title="Layanan & Item">
-      <div className="container mx-auto space-y-6 px-4 py-6">
+      <Container>
         <div className="space-y-4">
           <div className="flex items-center justify-between space-x-4">
             <PageHeader>
@@ -81,9 +81,9 @@ export const ItemListPageInner = () => {
               </PageHeaderDescription>
             </PageHeader>
 
-            <Button onClick={onCreateClick}>
+            <Button onClick={onCreateClick} size="responsive">
               <Plus />
-              <span>Tambah Item</span>
+              <span className="hidden lg:block">Tambah Item</span>
             </Button>
           </div>
 
@@ -100,7 +100,7 @@ export const ItemListPageInner = () => {
         </div>
 
         <ItemLists data={data ?? []} isLoading={isPending} />
-      </div>
+      </Container>
 
       {/* Dialogs */}
       <CreateItemDialog />

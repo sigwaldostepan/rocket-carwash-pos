@@ -1,6 +1,6 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import { authClient } from "@/lib/auth";
 import { NavigationGrid } from "./NavigationGrid";
 
@@ -14,7 +14,7 @@ export const HomePageInner = () => {
 
   return (
     <PageShell title="Beranda">
-      <div className="container mx-auto px-4 py-6">
+      <Container>
         {/* welcoming section */}
         <div className="space-y-2">
           <h3 className="text-2xl font-semibold">Hi, {data?.user?.name}</h3>
@@ -29,7 +29,7 @@ export const HomePageInner = () => {
         <div className="mt-8">
           <NavigationGrid />
         </div>
-      </div>
+      </Container>
     </PageShell>
   );
 };

@@ -1,20 +1,20 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/shared";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetExpenseReport } from "../api/get-expense-report";
-import { useDateRangeFilter } from "@/hooks/use-date-range-filter";
-import { ArrowLeftRight, Wallet } from "lucide-react";
-import { formatRupiah } from "@/utils/currency";
-import { StatCard } from "../../components/StatCard";
-import { CategoryDetail } from "./category-detail/CategoryDetail";
 import { DatePickerRange } from "@/components/ui/date-picker-range";
+import { useDateRangeFilter } from "@/hooks/use-date-range-filter";
+import { formatRupiah } from "@/utils/currency";
+import { ArrowLeftRight, Wallet } from "lucide-react";
 import { ReportDetailEmptyState } from "../../components/ReportDetailEmptyState";
+import { StatCard } from "../../components/StatCard";
+import { useGetExpenseReport } from "../api/get-expense-report";
+import { CategoryDetail } from "./category-detail/CategoryDetail";
 
 export const ExpenseReportPageInner = () => {
   const { dateRange, dateFrom, dateTo, setDateRange } = useDateRangeFilter();
@@ -28,7 +28,7 @@ export const ExpenseReportPageInner = () => {
 
   return (
     <PageShell title="Laporan Pengeluaran">
-      <div className="container mx-auto space-y-6 px-4 py-6">
+      <Container>
         <div className="flex items-center justify-between">
           <PageHeader>
             <PageHeaderHeading>Laporan Pengeluaran</PageHeaderHeading>
@@ -36,7 +36,13 @@ export const ExpenseReportPageInner = () => {
               Ringkasan detail mengenai pengeluaran usaha
             </PageHeaderDescription>
           </PageHeader>
-          <DatePickerRange date={dateRange} setDate={setDateRange} />
+          <DatePickerRange
+            date={dateRange}
+            setDate={setDateRange}
+            triggerProps={{
+              size: "responsive",
+            }}
+          />
         </div>
 
         <section className="space-y-4">
@@ -69,7 +75,7 @@ export const ExpenseReportPageInner = () => {
             </CardContent>
           </Card>
         </section>
-      </div>
+      </Container>
     </PageShell>
   );
 };

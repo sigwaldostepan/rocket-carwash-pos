@@ -1,27 +1,24 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/shared";
-import { useGetTransactions } from "../api/get-transactions";
-import { TransactionTable } from "./transaction-table/TransactionTable";
-import { usePaginationQuery } from "@/hooks/use-pagination-query";
 import { DatePickerRange } from "@/components/ui/date-picker-range";
-import { DateRange } from "react-day-picker";
-import { useState } from "react";
-import { endOfDay, startOfDay } from "date-fns";
-import { DIALOG_KEY, useDialog } from "@/stores/dialog";
-import {
-  deleteTransaction,
-  useDeleteTransaction,
-} from "../api/delete-transaction";
-import { TransactionWithCustomer } from "@/types/api/transaction";
-import { DeleteTransactionAlert } from "./dialogs";
-import { toast } from "sonner";
+import { usePaginationQuery } from "@/hooks/use-pagination-query";
 import { getApiErrorMessage } from "@/lib/api-client";
+import { DIALOG_KEY, useDialog } from "@/stores/dialog";
+import { TransactionWithCustomer } from "@/types/api/transaction";
+import { endOfDay, startOfDay } from "date-fns";
+import { useState } from "react";
+import { DateRange } from "react-day-picker";
+import { toast } from "sonner";
+import { useDeleteTransaction } from "../api/delete-transaction";
+import { useGetTransactions } from "../api/get-transactions";
+import { DeleteTransactionAlert } from "./dialogs";
+import { TransactionTable } from "./transaction-table/TransactionTable";
 
 export const TransactionListPageInner = () => {
   const { page, limit } = usePaginationQuery();
@@ -60,9 +57,9 @@ export const TransactionListPageInner = () => {
 
   return (
     <PageShell title="List Transaksi">
-      <div className="container mx-auto space-y-6 px-4 py-6">
+      <Container>
         <div className="space-y-4">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-row items-center justify-between gap-2">
             <PageHeader>
               <PageHeaderHeading>List Transaksi</PageHeaderHeading>
               <PageHeaderDescription>
@@ -81,7 +78,7 @@ export const TransactionListPageInner = () => {
           isLoading={isPending}
         />
         <DeleteTransactionAlert onConfirm={onConfirmDelete} />
-      </div>
+      </Container>
     </PageShell>
   );
 };

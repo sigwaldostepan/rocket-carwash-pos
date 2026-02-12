@@ -1,6 +1,6 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -12,11 +12,13 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { useDebounce } from "@/hooks/use-debounce";
 import { usePaginationQuery } from "@/hooks/use-pagination-query";
 import { getApiErrorMessage } from "@/lib/api-client";
 import { DIALOG_KEY, useDialog } from "@/stores/dialog";
 import { CustomerWithTransactionCount } from "@/types/api/customer";
 import { Plus, Search } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useDeleteCustomer } from "../api/delete-customer";
 import { useGetCustomers } from "../api/get-customers";
@@ -26,8 +28,6 @@ import {
   DeleteCustomerAlert,
   EditCustomerDialog,
 } from "./dialogs";
-import { useDebounce } from "@/hooks/use-debounce";
-import { useState } from "react";
 
 export const CustomerListPageInner = () => {
   // query params
@@ -76,7 +76,7 @@ export const CustomerListPageInner = () => {
 
   return (
     <PageShell title="Customer">
-      <div className="container mx-auto space-y-6 px-4 py-6">
+      <Container>
         <div className="space-y-4">
           <div className="flex items-center justify-between space-x-4">
             <PageHeader>
@@ -85,9 +85,9 @@ export const CustomerListPageInner = () => {
                 Kelola customer dan cek poin loyalti customer
               </PageHeaderDescription>
             </PageHeader>
-            <Button onClick={onCreateClick}>
+            <Button onClick={onCreateClick} size="responsive">
               <Plus />
-              <p className="hidden md:block">Tambah customer</p>
+              <p className="hidden lg:block">Tambah customer</p>
             </Button>
           </div>
 
@@ -110,7 +110,7 @@ export const CustomerListPageInner = () => {
           }}
           isLoading={isLoading}
         />
-      </div>
+      </Container>
 
       {/* Dialogs */}
       <CreateCustomerDialog />

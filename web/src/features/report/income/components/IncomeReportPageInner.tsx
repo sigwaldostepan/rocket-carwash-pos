@@ -1,20 +1,20 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/shared";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetIncomeReport } from "../api/get-income-report";
-import { useDateRangeFilter } from "@/hooks/use-date-range-filter";
-import { ArrowLeftRight, TrendingUp, Wallet } from "lucide-react";
-import { formatRupiah } from "@/utils/currency";
-import { StatCard } from "../../components/StatCard";
-import { PaymentMethodDetail } from "./payment-method-detail/PaymentMethodDetail";
 import { DatePickerRange } from "@/components/ui/date-picker-range";
+import { useDateRangeFilter } from "@/hooks/use-date-range-filter";
+import { formatRupiah } from "@/utils/currency";
+import { ArrowLeftRight, TrendingUp, Wallet } from "lucide-react";
 import { ReportDetailEmptyState } from "../../components/ReportDetailEmptyState";
+import { StatCard } from "../../components/StatCard";
+import { useGetIncomeReport } from "../api/get-income-report";
+import { PaymentMethodDetail } from "./payment-method-detail/PaymentMethodDetail";
 
 export const IncomeReportPageInner = () => {
   const { dateRange, dateFrom, dateTo, setDateRange } = useDateRangeFilter();
@@ -28,7 +28,7 @@ export const IncomeReportPageInner = () => {
 
   return (
     <PageShell title="Laporan Pemasukan">
-      <div className="container mx-auto space-y-6 px-4 py-6">
+      <Container>
         <div className="flex items-center justify-between">
           <PageHeader>
             <PageHeaderHeading>Laporan Pemasukan</PageHeaderHeading>
@@ -36,7 +36,13 @@ export const IncomeReportPageInner = () => {
               Ringkasan detail mengenai pemasukan usaha
             </PageHeaderDescription>
           </PageHeader>
-          <DatePickerRange date={dateRange} setDate={setDateRange} />
+          <DatePickerRange
+            date={dateRange}
+            setDate={setDateRange}
+            triggerProps={{
+              size: "responsive",
+            }}
+          />
         </div>
 
         <section className="space-y-4">
@@ -77,7 +83,7 @@ export const IncomeReportPageInner = () => {
             </CardContent>
           </Card>
         </section>
-      </div>
+      </Container>
     </PageShell>
   );
 };

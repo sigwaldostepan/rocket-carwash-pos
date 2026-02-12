@@ -1,6 +1,6 @@
 "use client";
 
-import { PageShell } from "@/components/layouts";
+import { Container, PageShell } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -78,9 +78,9 @@ export const ExpenseListPageInner = () => {
 
   return (
     <PageShell title="Pengeluaran">
-      <div className="container mx-auto space-y-6 px-4 py-6">
+      <Container>
         <div className="space-y-4">
-          <div className="flex flex-row items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2">
             <PageHeader>
               <PageHeaderHeading>Pengeluaran</PageHeaderHeading>
               <PageHeaderDescription>
@@ -88,10 +88,18 @@ export const ExpenseListPageInner = () => {
               </PageHeaderDescription>
             </PageHeader>
             <div className="flex items-center gap-2">
-              <DatePickerRange date={date} setDate={setDate} />
-              <Button onClick={onCreateClick}>
+              <DatePickerRange
+                date={date}
+                setDate={setDate}
+                triggerProps={{
+                  variant: "outline",
+                  className: "justify-center flex items-center",
+                  size: "responsive",
+                }}
+              />
+              <Button onClick={onCreateClick} size="responsive">
                 <Plus />{" "}
-                <span className="hidden md:block">Tambah Pengeluaran</span>
+                <span className="hidden lg:block">Tambah Pengeluaran</span>
               </Button>
             </div>
           </div>
@@ -104,7 +112,7 @@ export const ExpenseListPageInner = () => {
           }}
           isLoading={isLoading}
         />
-      </div>
+      </Container>
 
       {/* Dialogs */}
       <CreateExpenseDialog />
