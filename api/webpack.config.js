@@ -9,6 +9,7 @@ module.exports = function (options, webpack) {
           'better-auth',
           '@thallesp/nestjs-better-auth',
           /^better-auth\//, // This catches all better-auth/* subpaths
+          /^generated\//, // Bundle the generated Prisma client — not a real node_module
         ],
       }),
     ],
