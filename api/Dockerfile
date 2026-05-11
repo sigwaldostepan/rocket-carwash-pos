@@ -55,7 +55,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Copy production node_modules and package.json from the prod-deps stage
-COPY --from=prod-deps /usr/src/app/api/node_modules ./node_modules
+# With shamefully-hoist=true, dependencies are flattened into the root node_modules
+COPY --from=prod-deps /usr/src/app/node_modules ./node_modules
 COPY --from=prod-deps /usr/src/app/api/package.json ./package.json
 
 # Copy built application and generated prisma client from the build stage
