@@ -26,14 +26,15 @@
   },
   "dependencies": {
     "@hedystia/better-auth-typeorm": "^0.4.4",
+    "@nestjs/apollo": "^12.2.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^4.0.1",
     "@nestjs/core": "^10.0.0",
-    "@nestjs/graphql": "^13.2.4",
+    "@nestjs/graphql": "^12.2.2",
     "@nestjs/mapped-types": "^2.1.0",
-    "@nestjs/passport": "^11.0.5",
+    "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
-    "@nestjs/typeorm": "^11.0.0",
+    "@nestjs/typeorm": "^10.0.2",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@thallesp/nestjs-better-auth": "^2.2.2",
@@ -53,8 +54,6 @@
     "react-to-print": "^3.2.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.21",
-    "typeorm-extension": "^3.7.1",
     "winston": "^3.19.0"
   },
   "devDependencies": {
