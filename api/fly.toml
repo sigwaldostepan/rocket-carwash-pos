@@ -3,3 +3,5 @@
 
 [build.args]
   NIXPACKS_PKGS = "pnpm nodejs"
+  
+  PNPM_INSTALL_ARGS = "--no-frozen-lockfile"

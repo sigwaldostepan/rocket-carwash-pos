@@ -1,0 +1,35 @@
+# Ignore all node_modules recursively
+**/node_modules
+node_modules
+api/node_modules
+web/node_modules
+
+# Ignore build artifacts
+**/dist
+dist
+api/dist
+web/dist
+**/.next
+**/out
+**/generated
+generated
+api/generated
+
+# Ignore env files
+.env
+.env.*
+api/.env
+api/.env.*
+web/.env
+web/.env.*
+
+# Ignore git and IDE
+.git
+.vscode
+.idea
+
+# Ignore logs
+*.log
+logs
+api/logs
+web/logs
