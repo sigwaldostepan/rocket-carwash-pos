@@ -1,10 +1,13 @@
 # Use Node.js 22.16.0 slim as the base image for a small footprint
 FROM node:22.16.0-slim AS base
 
-# Setup pnpm and corepack
+# Setup pnpm, corepack, and OpenSSL (required for Prisma)
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN corepack enable && \
+    apt-get update && \
+    apt-get install -y openssl && \
+    rm -rf /var/lib/apt/lists/*
 
 # --- Stage 1: Build ---
 FROM base AS build
@@ -21,8 +24,9 @@ COPY api/package.json ./api/
 COPY web/package.json* ./web/
 
 # Install all dependencies (including devDependencies for build)
+# We use --ignore-scripts to prevent Prisma from failing before the schema is copied
 # We use a cache mount for pnpm to speed up subsequent builds
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts
 
 # Now copy the rest of the source code
 COPY . .
