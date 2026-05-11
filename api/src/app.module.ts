@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
-import { TypeOrmModule } from './infra/persistance/database/typeorm/typeorm.module';
 import { PrismaModule } from './infra/persistance/database/prisma/prisma.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { ExpenseModule } from './modules/expense/expense.module';
