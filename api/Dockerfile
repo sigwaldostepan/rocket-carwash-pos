@@ -65,4 +65,4 @@ COPY --from=build /usr/src/app/api/prisma ./prisma
 EXPOSE 4000
 
 # Start the application using node directly
-CMD ["node", "dist/src/main.js"]
+CMD ["node", "dist/main.js"]
