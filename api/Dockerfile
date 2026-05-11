@@ -13,12 +13,12 @@ WORKDIR /usr/src/app
 # Dummy DATABASE_URL to satisfy Prisma during build/install
 ENV DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
 
-# Copy root monorepo configuration
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json .npmrc ./
+# Copy root monorepo configuration (using wildcards to prevent errors if some files are missing)
+COPY pnpm-lock.yaml* pnpm-workspace.yaml* package.json* .npmrc* ./
 
 # Copy individual package.json files (needed for pnpm to resolve workspaces)
-COPY api/package.json ./api
-COPY web/package.json ./web
+COPY api/package.json ./api/
+COPY web/package.json* ./web/
 
 # Install all dependencies (including devDependencies for build)
 # We use a cache mount for pnpm to speed up subsequent builds
