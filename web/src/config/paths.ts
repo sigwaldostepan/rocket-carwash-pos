@@ -14,6 +14,7 @@ export const paths = {
     transactions: {
       index: "/transactions",
       create: "/transactions/create",
+      drafts: "/transactions/drafts",
     },
     expenses: {
       index: "/expenses",

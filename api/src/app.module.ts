@@ -6,6 +6,7 @@ import { CustomerModule } from './modules/customer/customer.module';
 import { ExpenseModule } from './modules/expense/expense.module';
 import { ItemModule } from './modules/item/item.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
+import { DraftModule } from './modules/draft/draft.module';
 import { envConfig } from './config/env.config';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from './infra/auth/auth.config';
@@ -25,6 +26,7 @@ import { HealthModule } from './modules/health/health.module';
     CustomerModule,
     ItemModule,
     TransactionModule,
+    DraftModule,
     ExpenseModule,
     LoggerModule,
     ReportModule,

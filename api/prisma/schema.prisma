@@ -25,6 +25,7 @@ model Customer {
   phoneNumber String        @map("phone_number") @db.VarChar(255)
   point       Int           @default(0)
   transaction Transaction[]
+  draft        Draft[]
 
   @@map("customer")
 }
@@ -59,6 +60,7 @@ model Item {
   isGetPoint        Boolean             @default(false)
   canBeComplimented Boolean             @default(false)
   transactionDetail TransactionDetail[]
+  draftDetail        DraftDetail[]
 
   @@map("item")
 }
@@ -90,6 +92,28 @@ model TransactionDetail {
   item             Item?        @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_dc321d3ba426d32789f3d74aba6")
 
   @@map("transaction_detail")
+}
+
+model Draft {
+  id         String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  customerId String?       @db.Uuid
+  createdAt  DateTime      @default(now()) @db.Timestamptz(6)
+  customer   Customer?     @relation(fields: [customerId], references: [id], onUpdate: NoAction)
+  detail     DraftDetail[]
+
+  @@map("draft")
+}
+
+model DraftDetail {
+  id               String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  draftId          String? @db.Uuid
+  itemId           String? @db.Uuid
+  quantity         Int     @default(0)
+  redeemedQuantity Int     @default(0)
+  draft            Draft?  @relation(fields: [draftId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  item             Item?   @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@map("draft_detail")
 }
 
 model User {

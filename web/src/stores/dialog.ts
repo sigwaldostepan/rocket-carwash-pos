@@ -38,6 +38,11 @@ export const DIALOG_KEY = {
     printInvoice: "PRINT-INVOICE",
     delete: "DELETE-TRANSACTION",
   },
+
+  // Draft
+  draft: {
+    delete: "DELETE-DRAFT",
+  },
 } as const;
 
 // helper type to extract all possible dialog key

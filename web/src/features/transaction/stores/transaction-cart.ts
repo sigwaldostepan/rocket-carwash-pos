@@ -3,9 +3,11 @@ import { TransactionItem } from "../types";
 
 export type TransactionItemSlice = {
   cartItems: TransactionItem[];
+  loadedDraftId: string | null;
   addItem: (newItem: TransactionItem) => void;
   removeItem: (itemId: string) => void;
   updateItemQuantity: (itemId: string, quantity: number) => void;
+  setLoadedDraftId: (id: string | null) => void;
   resetCart: () => void;
 };
 
@@ -13,6 +15,7 @@ export const transactionItemSlice: StateCreator<TransactionItemSlice> = (
   set,
 ) => ({
   cartItems: [],
+  loadedDraftId: null,
   addItem: (newItem) =>
     set((state) => {
       const existingItem = state.cartItems.find(
@@ -41,5 +44,6 @@ export const transactionItemSlice: StateCreator<TransactionItemSlice> = (
         item.id === itemId ? { ...item, quantity } : item,
       ),
     })),
-  resetCart: () => set(() => ({ cartItems: [] })),
+  setLoadedDraftId: (id) => set(() => ({ loadedDraftId: id })),
+  resetCart: () => set(() => ({ cartItems: [], loadedDraftId: null })),
 });

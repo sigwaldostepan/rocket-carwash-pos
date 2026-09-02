@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import { useCreateTransation } from "../api/create-transaction";
+import { useDeleteDraft } from "@/features/draft/api/delete-draft";
 import {
   transactionStoreSelectors,
   useTransactionCartStore,
@@ -16,10 +17,16 @@ export const useTransactionCartCheckout = () => {
   const { customer, setCustomer } = useTransactionCustomerStore();
   const { subtotalPrice, totalPrice } = useTransactionPaymentStore();
 
+  const { mutate: deleteDraft } = useDeleteDraft({});
+
   const { mutateAsync: createTransaction, isPending: isCreatingTransaction } =
     useCreateTransation({
       mutationConfig: {
         onSuccess: () => {
+          const { loadedDraftId } = useTransactionStore.getState();
+          if (loadedDraftId) {
+            deleteDraft(loadedDraftId);
+          }
           toast.success("Transaksi berhasil dibuat");
         },
         onError: (err) => {

@@ -45,6 +45,11 @@ const transaction: NavItem = {
       path: paths.app.transactions.create,
       title: "Buat transaksi",
     },
+    {
+      key: "transaction-drafts",
+      path: paths.app.transactions.drafts,
+      title: "Draft transaksi",
+    },
   ],
 };
 

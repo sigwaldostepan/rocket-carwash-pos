@@ -1,7 +1,9 @@
 import { REDEEM_POINT_COST } from "@/constants/transaction";
+import { Customer } from "@/types/api/customer";
 import { create } from "zustand";
 import { pointRedeemSlice, PointRedeemSlice } from "./point-redeem";
 import { transactionItemSlice, TransactionItemSlice } from "./transaction-cart";
+import { TransactionItem } from "../types";
 import {
   transactionCustomerSlice,
   TransactionCustomerSlice,
@@ -31,12 +33,18 @@ export const useTransactionCartStore = () => {
   const updateItemQuantity = useTransactionStore(
     (state) => state.updateItemQuantity,
   );
+  const loadedDraftId = useTransactionStore((state) => state.loadedDraftId);
+  const setLoadedDraftId = useTransactionStore(
+    (state) => state.setLoadedDraftId,
+  );
 
   return {
     cartItems,
     addItem,
     removeItem,
     updateItemQuantity,
+    loadedDraftId,
+    setLoadedDraftId,
   };
 };
 
@@ -213,4 +221,30 @@ export const useResetTransaction = () => {
   };
 
   return { resetTransaction };
+};
+
+export const useLoadDraft = () => {
+  const resetCart = useTransactionStore((state) => state.resetCart);
+  const addItem = useTransactionStore((state) => state.addItem);
+  const setCustomer = useTransactionStore((state) => state.setCustomer);
+  const setLoadedDraftId = useTransactionStore(
+    (state) => state.setLoadedDraftId,
+  );
+  const resetPaymentStates = useTransactionStore(
+    (state) => state.resetPaymentStates,
+  );
+
+  const loadDraft = (
+    items: TransactionItem[],
+    customer?: Customer,
+    loadedDraftId?: string | null,
+  ) => {
+    resetCart();
+    resetPaymentStates();
+    setCustomer(customer);
+    setLoadedDraftId(loadedDraftId ?? null);
+    items.forEach(addItem);
+  };
+
+  return { loadDraft };
 };
