@@ -1,6 +1,5 @@
 import {
   ArrowDownLeft,
-  BarChart3,
   Home,
   LucideIcon,
   ReceiptText,
@@ -21,13 +20,12 @@ const transaction: NavItem = { key: "transaction", path: paths.app.transactions,
 const item: NavItem = { key: "item", path: paths.app.items, icon: Tag, title: "Item" };
 const customer: NavItem = { key: "customer", path: paths.app.customers, icon: Users2, title: "Pelanggan" };
 const expense: NavItem = { key: "expense", path: paths.app.expenses, icon: ArrowDownLeft, title: "Pengeluaran" };
-const report: NavItem = { key: "report", path: paths.app.reports, icon: BarChart3, title: "Laporan" };
 
 type UserRole = "cashier" | "owner";
 
 const navigationsByRole: Record<UserRole, NavItem[]> = {
-  cashier: [home, transaction, item, customer],
-  owner: [home, transaction, item, customer, expense, report],
+  cashier: [home, transaction, customer],
+  owner: [home, transaction, item, customer, expense],
 };
 
 export function getNavigationsByRole(role: UserRole): NavItem[] {

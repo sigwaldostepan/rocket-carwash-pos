@@ -13,6 +13,5 @@ export const paths = {
     items: "/items",
     transactions: "/transactions",
     expenses: "/expenses",
-    reports: "/reports",
   },
 };

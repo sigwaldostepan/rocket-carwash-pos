@@ -16,7 +16,12 @@ import { StatCard } from "../../components/StatCard";
 import { useGetIncomeReport } from "../api/get-income-report";
 import { PaymentMethodDetail } from "./payment-method-detail/PaymentMethodDetail";
 
-export const IncomeReportPageInner = () => {
+type IncomeReportPageInnerProps = {
+  role?: string;
+};
+
+export const IncomeReportPageInner = ({ role }: IncomeReportPageInnerProps) => {
+  const isCashier = role === "cashier";
   const { dateRange, dateFrom, dateTo, setDateRange } = useDateRangeFilter();
 
   const { data } = useGetIncomeReport({
@@ -32,16 +37,18 @@ export const IncomeReportPageInner = () => {
           <PageHeader>
             <PageHeaderHeading>Laporan Pemasukan</PageHeaderHeading>
             <PageHeaderDescription>
-              Ringkasan detail mengenai pemasukan usaha
+              {isCashier ? "Pemasukan hari ini" : "Ringkasan detail mengenai pemasukan usaha"}
             </PageHeaderDescription>
           </PageHeader>
-          <DatePickerRange
-            date={dateRange}
-            setDate={setDateRange}
-            triggerProps={{
-              size: "responsive",
-            }}
-          />
+          {!isCashier && (
+            <DatePickerRange
+              date={dateRange}
+              setDate={setDateRange}
+              triggerProps={{
+                size: "responsive",
+              }}
+            />
+          )}
         </div>
 
         <section className="space-y-4">

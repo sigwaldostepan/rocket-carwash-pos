@@ -4,7 +4,6 @@ import { paths } from "@/config/paths";
 import { authClient } from "@/lib/auth";
 import {
   ArrowDownLeft,
-  BarChart3,
   PlusCircle,
   ReceiptText,
   Tag,
@@ -22,14 +21,6 @@ type NavigationItem = {
   path: string;
 };
 
-/**
- * Cashier Dashboard Grid
- *
- * Navigation items for cashier role, focusing on daily operations:
- * - Transaction processing
- * - Customer management
- * - Item/service management
- */
 const cashierNavigations: NavigationItem[] = [
   {
     key: "create-transaction",
@@ -46,13 +37,6 @@ const cashierNavigations: NavigationItem[] = [
     path: paths.app.transactions,
   },
   {
-    key: "items",
-    title: "Kelola Item",
-    description: "Lihat layanan cuci mobil & produk lain.",
-    icon: Tag,
-    path: paths.app.items,
-  },
-  {
     key: "customers",
     title: "Data Pelanggan",
     description: "List pelanggan.",
@@ -61,29 +45,21 @@ const cashierNavigations: NavigationItem[] = [
   },
 ];
 
-/**
- * Owner Dashboard Grid
- *
- * Navigation items for owner role, includes all cashier menus plus:
- * - Financial reports
- * - Expense tracking
- * - Business analytics
- */
 export const ownerNavigations: NavigationItem[] = [
   ...cashierNavigations,
+  {
+    key: "items",
+    title: "Kelola Item",
+    description: "Lihat layanan cuci mobil & produk lain.",
+    icon: Tag,
+    path: paths.app.items,
+  },
   {
     key: "expense-entry",
     title: "Catat Pengeluaran",
     description: "Input transaksi pengeluaran harian.",
     icon: ArrowDownLeft,
     path: paths.app.expenses,
-  },
-  {
-    key: "report",
-    title: "Laporan",
-    description: "Rekap omzet, profit, dan pengeluaran.",
-    icon: BarChart3,
-    path: paths.app.reports,
   },
 ];
 
