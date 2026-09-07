@@ -94,28 +94,30 @@ describe('CustomerService', () => {
 
   describe('findMany', () => {
     it('should return customers and total', async () => {
-      const mockCustomer = { 
+      const mockCustomer = {
         id: '1',
         name: 'Test Customer',
         phoneNumber: '1234567890',
         _count: { transaction: 5 },
         // Add other required fields from CUSTOMER_SELECT_WITH_TRANSACTION_COUNT
       };
-      
+
       prisma.customer.findMany.mockResolvedValue([mockCustomer]);
       prisma.customer.count.mockResolvedValue(1);
 
       const dto = { limit: 10, offset: 0 } as any;
       const result = await service.findMany(dto);
 
-      expect(result).toEqual({ 
-        customers: [{ 
-          id: '1',
-          name: 'Test Customer',
-          phoneNumber: '1234567890',
-          transactionCount: 5
-        }], 
-        total: 1 
+      expect(result).toEqual({
+        customers: [
+          {
+            id: '1',
+            name: 'Test Customer',
+            phoneNumber: '1234567890',
+            transactionCount: 5,
+          },
+        ],
+        total: 1,
       });
       expect(mockLogger.info).toHaveBeenCalled();
     });

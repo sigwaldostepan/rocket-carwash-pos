@@ -6,6 +6,8 @@ export const TRANSACTION_BASE_SELECT: Prisma.TransactionSelect = {
   total: true,
   subtotal: true,
   createdAt: true,
+  draftedAt: true,
+  paidAt: true,
   complimentValue: true,
   isNightShift: true,
   isCompliment: true,

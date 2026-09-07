@@ -63,4 +63,8 @@ export class CreateTransactionDto {
   @IsOptional()
   @IsBoolean()
   isNightShift?: boolean;
+
+  @IsOptional()
+  @IsString()
+  draftedAt?: string;
 }

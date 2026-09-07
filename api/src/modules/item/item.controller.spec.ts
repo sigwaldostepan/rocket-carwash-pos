@@ -39,7 +39,7 @@ describe('ItemController', () => {
 
     controller = module.get<ItemController>(ItemController);
     service = module.get<ItemService>(ItemService);
-    
+
     // Clear all mocks before each test
     jest.clearAllMocks();
   });

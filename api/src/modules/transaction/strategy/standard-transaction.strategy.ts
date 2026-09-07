@@ -64,6 +64,8 @@ export class StandardTransactionStrategy implements TransactionStrategy<Validate
           isNightShift: false,
           total,
           subtotal: total,
+          draftedAt: dto.draftedAt ? new Date(dto.draftedAt) : new Date(),
+          paidAt: new Date(),
           transactionDetail: {
             create: dto.items.map((item) => ({
               itemId: item.itemId,

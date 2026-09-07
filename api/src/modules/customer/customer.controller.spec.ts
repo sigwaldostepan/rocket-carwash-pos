@@ -44,7 +44,7 @@ describe('CustomerController', () => {
       const dto = { ids: ['uuid-1'] };
       const expectedResult = { success: true };
       mockService.batchDelete.mockResolvedValue(expectedResult);
-      
+
       const result = await controller.batchDelete(dto);
       expect(result).toBe(expectedResult);
     });

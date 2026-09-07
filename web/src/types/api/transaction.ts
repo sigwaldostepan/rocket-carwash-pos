@@ -6,6 +6,8 @@ export type Transaction = {
   paymentMethod: string;
   isCompliment: boolean;
   createdAt: string;
+  draftedAt: string | null;
+  paidAt: string | null;
   customerId: string | null;
   complimentValue: number;
   total: number;

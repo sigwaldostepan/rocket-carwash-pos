@@ -90,6 +90,8 @@ export class ComplimentTransactionStrategy implements TransactionStrategy<Valida
           isNightShift: false,
           subtotal,
           total,
+          draftedAt: dto.draftedAt ? new Date(dto.draftedAt) : new Date(),
+          paidAt: new Date(),
           transactionDetail: {
             create: dto.items.map((item) => ({
               itemId: item.itemId,
@@ -146,6 +148,8 @@ export class ComplimentTransactionStrategy implements TransactionStrategy<Valida
           isNightShift: true,
           subtotal,
           total,
+          draftedAt: dto.draftedAt ? new Date(dto.draftedAt) : new Date(),
+          paidAt: new Date(),
           transactionDetail: {
             create: dto.items.map((item) => ({
               itemId: item.itemId,

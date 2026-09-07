@@ -71,6 +71,8 @@ model Transaction {
   paymentMethod     String?             @db.VarChar
   isCompliment      Boolean             @default(false)
   createdAt         DateTime            @default(now()) @db.Timestamptz(6)
+  draftedAt         DateTime?           @db.Timestamptz(6)
+  paidAt            DateTime?           @db.Timestamptz(6)
   customerId        String?             @db.Uuid
   complimentValue   Decimal             @default(0) @db.Decimal
   subtotal          Decimal             @default(0) @db.Decimal

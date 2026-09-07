@@ -121,6 +121,8 @@ export class RedeemTransactionStrategy implements TransactionStrategy<ValidatedD
           isNightShift: false,
           subtotal,
           total,
+          draftedAt: dto.draftedAt ? new Date(dto.draftedAt) : new Date(),
+          paidAt: new Date(),
           transactionDetail: {
             create: dto.items.map((item) => ({
               itemId: item.itemId,
