@@ -1,15 +1,13 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
 import { paths } from "@/config/paths";
 import { authClient } from "@/lib/auth";
 import {
   ArrowDownLeft,
+  BarChart3,
   PlusCircle,
   ReceiptText,
   Tag,
-  TrendingDown,
-  TrendingUp,
   Users2,
   type LucideIcon,
 } from "lucide-react";
@@ -38,14 +36,14 @@ const cashierNavigations: NavigationItem[] = [
     title: "Buat Transaksi Baru",
     description: "Proses transaksi baru.",
     icon: PlusCircle,
-    path: paths.app.transactions.create,
+    path: paths.app.transactions,
   },
   {
     key: "transaction-list",
     title: "Riwayat Transaksi",
     description: "Lihat daftar transaksi.",
     icon: ReceiptText,
-    path: paths.app.transactions.index,
+    path: paths.app.transactions,
   },
   {
     key: "items",
@@ -78,21 +76,14 @@ export const ownerNavigations: NavigationItem[] = [
     title: "Catat Pengeluaran",
     description: "Input transaksi pengeluaran harian.",
     icon: ArrowDownLeft,
-    path: paths.app.expenses.index,
+    path: paths.app.expenses,
   },
   {
-    key: "report-income",
-    title: "Laporan Pemasukan",
-    description: "Rekap omzet dan profit.",
-    icon: TrendingUp,
-    path: paths.app.reports.income,
-  },
-  {
-    key: "report-expense",
-    title: "Laporan Pengeluaran",
-    description: "Rekap biaya operasional & pengeluaran.",
-    icon: TrendingDown,
-    path: paths.app.reports.expense,
+    key: "report",
+    title: "Laporan",
+    description: "Rekap omzet, profit, dan pengeluaran.",
+    icon: BarChart3,
+    path: paths.app.reports,
   },
 ];
 

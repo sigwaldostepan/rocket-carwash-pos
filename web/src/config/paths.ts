@@ -11,18 +11,8 @@ export const paths = {
     home: "/home",
     customers: "/customers",
     items: "/items",
-    transactions: {
-      index: "/transactions",
-      create: "/transactions/create",
-      drafts: "/transactions/drafts",
-    },
-    expenses: {
-      index: "/expenses",
-      category: "/expenses/categories",
-    },
-    reports: {
-      expense: "/reports/expense",
-      income: "/reports/income",
-    },
+    transactions: "/transactions",
+    expenses: "/expenses",
+    reports: "/reports",
   },
 };
