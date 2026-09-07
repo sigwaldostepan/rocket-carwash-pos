@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, PageShell } from "@/components/layouts";
+import { Container } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -43,8 +43,7 @@ export const DraftListPageInner = () => {
   };
 
   return (
-    <PageShell title="Draft Transaksi">
-      <Container>
+    <Container>
         <div className="space-y-4">
           <PageHeader>
             <PageHeaderHeading>Draft Transaksi</PageHeaderHeading>
@@ -110,6 +109,5 @@ export const DraftListPageInner = () => {
 
         <DeleteDraftAlert onConfirm={onConfirmDelete} />
       </Container>
-    </PageShell>
   );
 };

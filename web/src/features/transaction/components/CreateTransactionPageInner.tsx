@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, PageShell } from "@/components/layouts";
+import { Container } from "@/components/layouts";
 import { PageHeader, PageHeaderHeading } from "@/components/shared";
 import {
   InputGroup,
@@ -34,8 +34,8 @@ export const CreateTransactionPageInner = () => {
   const { isOpen, key, setIsOpen } = useDialog<TransactionWithCustomer>();
 
   return (
-    <PageShell title="Buat Transaksi">
-      <Container className="flex gap-6">
+    <>
+    <Container className="flex gap-6">
         <section className="flex-1 space-y-6">
           <div className="space-y-4">
             <PageHeader>
@@ -60,7 +60,6 @@ export const CreateTransactionPageInner = () => {
         <TransactionCartSidebar className="sticky top-24 right-0 shrink-0 md:w-72" />
       </Container>
 
-      {/* dialogs */}
       <ApplyRedeemPointDialog
         open={isOpen && key === DIALOG_KEY.transaction.redeemPoint}
         onOpenChange={(open) =>
@@ -68,6 +67,6 @@ export const CreateTransactionPageInner = () => {
         }
       />
       <TransactionCartSheet />
-    </PageShell>
+    </>
   );
 };

@@ -29,21 +29,23 @@ export const transactionColumns: ColumnDef<TransactionWithCustomer>[] = [
     ),
   },
   {
-    accessorKey: "createdAt",
-    header: "Tanggal",
+    accessorKey: "draftedAt",
+    header: "Waktu Pencatatan",
     cell: ({ row }) => {
-      const value = row.original.createdAt;
+      const value = row.original.draftedAt;
+      if (!value) return "-";
 
-      return format(value, "dd MMM yyyy", { locale: id });
+      return format(value, "dd MMM yyyy HH:mm", { locale: id });
     },
   },
   {
-    accessorKey: "time",
-    header: "Waktu",
+    accessorKey: "paidAt",
+    header: "Waktu Pembayaran",
     cell: ({ row }) => {
-      const value = row.original.createdAt;
+      const value = row.original.paidAt;
+      if (!value) return "-";
 
-      return format(value, "HH:mm:ss", { locale: id });
+      return format(value, "dd MMM yyyy HH:mm", { locale: id });
     },
   },
   {

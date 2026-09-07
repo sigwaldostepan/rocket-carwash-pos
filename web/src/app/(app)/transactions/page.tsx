@@ -1,4 +1,4 @@
 export {
-  TransactionListPage as default,
+  TransactionPage as default,
   metadata,
-} from "@/features/transaction/pages/TransactionListPage";
+} from "@/features/transaction/pages/TransactionPage";

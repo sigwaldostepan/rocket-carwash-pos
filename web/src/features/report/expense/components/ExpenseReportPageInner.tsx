@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, PageShell } from "@/components/layouts";
+import { Container } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -27,8 +27,7 @@ export const ExpenseReportPageInner = () => {
   });
 
   return (
-    <PageShell title="Laporan Pengeluaran">
-      <Container>
+    <Container>
         <div className="flex items-center justify-between">
           <PageHeader>
             <PageHeaderHeading>Laporan Pengeluaran</PageHeaderHeading>
@@ -76,6 +75,5 @@ export const ExpenseReportPageInner = () => {
           </Card>
         </section>
       </Container>
-    </PageShell>
   );
 };

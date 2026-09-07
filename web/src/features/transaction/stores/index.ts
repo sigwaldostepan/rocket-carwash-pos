@@ -37,6 +37,12 @@ export const useTransactionCartStore = () => {
   const setLoadedDraftId = useTransactionStore(
     (state) => state.setLoadedDraftId,
   );
+  const loadedDraftCreatedAt = useTransactionStore(
+    (state) => state.loadedDraftCreatedAt,
+  );
+  const setLoadedDraftCreatedAt = useTransactionStore(
+    (state) => state.setLoadedDraftCreatedAt,
+  );
 
   return {
     cartItems,
@@ -45,6 +51,8 @@ export const useTransactionCartStore = () => {
     updateItemQuantity,
     loadedDraftId,
     setLoadedDraftId,
+    loadedDraftCreatedAt,
+    setLoadedDraftCreatedAt,
   };
 };
 
@@ -195,6 +203,7 @@ export const transactionStoreSelectors = {
       const isCompliment = state.isCompliment ?? state.complimentAmount > 0;
       const complimentAmount = state.complimentAmount;
       const isNightShift = state.isNightShift;
+      const draftedAt = state.loadedDraftCreatedAt ?? undefined;
 
       return {
         customerId,
@@ -203,6 +212,7 @@ export const transactionStoreSelectors = {
         isCompliment,
         complimentAmount,
         isNightShift,
+        draftedAt,
       };
     },
 };
@@ -230,6 +240,9 @@ export const useLoadDraft = () => {
   const setLoadedDraftId = useTransactionStore(
     (state) => state.setLoadedDraftId,
   );
+  const setLoadedDraftCreatedAt = useTransactionStore(
+    (state) => state.setLoadedDraftCreatedAt,
+  );
   const resetPaymentStates = useTransactionStore(
     (state) => state.resetPaymentStates,
   );
@@ -238,11 +251,13 @@ export const useLoadDraft = () => {
     items: TransactionItem[],
     customer?: Customer,
     loadedDraftId?: string | null,
+    loadedDraftCreatedAt?: string | null,
   ) => {
     resetCart();
     resetPaymentStates();
     setCustomer(customer);
     setLoadedDraftId(loadedDraftId ?? null);
+    setLoadedDraftCreatedAt(loadedDraftCreatedAt ?? null);
     items.forEach(addItem);
   };
 

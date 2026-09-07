@@ -1,4 +1,4 @@
 export {
-  ExpenseListPage as default,
+  ExpensePage as default,
   metadata,
-} from "@/features/expense/pages/ExpenseListPage";
+} from "@/features/expense/pages/ExpensePage";

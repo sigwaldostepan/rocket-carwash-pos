@@ -28,6 +28,7 @@ export const createTransactionSchema = z.object({
     .min(0, "Nilai komplimen gak boleh negatif")
     .optional(),
   isNightShift: z.boolean().optional(),
+  draftedAt: z.string().optional(),
 });
 
 export type TransactionItemSchema = z.infer<typeof transactionItemSchema>;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, PageShell } from "@/components/layouts";
+import { Container } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -56,8 +56,7 @@ export const TransactionListPageInner = () => {
   };
 
   return (
-    <PageShell title="List Transaksi">
-      <Container>
+    <Container>
         <div className="space-y-4">
           <div className="flex flex-row items-center justify-between gap-2">
             <PageHeader>
@@ -79,6 +78,5 @@ export const TransactionListPageInner = () => {
         />
         <DeleteTransactionAlert onConfirm={onConfirmDelete} />
       </Container>
-    </PageShell>
   );
 };

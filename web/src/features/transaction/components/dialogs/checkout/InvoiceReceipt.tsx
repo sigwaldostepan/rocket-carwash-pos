@@ -76,7 +76,10 @@ export const InvoiceReceipt = React.forwardRef<
           <div>No Invoice : {transaction.invoiceNo}</div>
           <div>
             Tanggal :{" "}
-            {format(new Date(transaction.createdAt), "dd/MM/yyyy HH:mm")}
+            {format(
+              new Date(transaction.paidAt ?? transaction.createdAt),
+              "dd/MM/yyyy HH:mm",
+            )}
           </div>
           <div>Customer : {customerName ?? "-"}</div>
         </div>

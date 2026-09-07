@@ -28,8 +28,13 @@ export const useLoadDraft = () => {
 
   const load = useCallback(
     (draft: DraftWithCustomer) => {
-      loadDraft(toTransactionItems(draft.detail), draft.customer ?? undefined);
-      router.push(paths.app.transactions.create);
+      loadDraft(
+        toTransactionItems(draft.detail),
+        draft.customer ?? undefined,
+        undefined,
+        draft.createdAt,
+      );
+      router.push(paths.app.transactions);
     },
     [loadDraft, router],
   );

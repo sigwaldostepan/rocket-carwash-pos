@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, PageShell } from "@/components/layouts";
+import { Container } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -77,8 +77,8 @@ export const ExpenseListPageInner = () => {
   };
 
   return (
-    <PageShell title="Pengeluaran">
-      <Container>
+    <>
+    <Container>
         <div className="space-y-4">
           <div className="flex items-center justify-between gap-2">
             <PageHeader>
@@ -114,10 +114,9 @@ export const ExpenseListPageInner = () => {
         />
       </Container>
 
-      {/* Dialogs */}
       <CreateExpenseDialog />
       <EditExpenseDialog />
       <DeleteExpenseAlert onConfirm={onDeleteConfirm} />
-    </PageShell>
+    </>
   );
 };

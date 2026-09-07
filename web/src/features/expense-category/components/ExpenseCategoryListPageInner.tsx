@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, PageShell } from "@/components/layouts";
+import { Container } from "@/components/layouts";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -56,8 +56,8 @@ export const ExpenseCategoryListPageInner = () => {
   };
 
   return (
-    <PageShell title="Kategori Pengeluaran">
-      <Container>
+    <>
+    <Container>
         <div className="flex items-center justify-between gap-4">
           <PageHeader>
             <PageHeaderHeading>Kategori Pengeluaran</PageHeaderHeading>
@@ -73,10 +73,9 @@ export const ExpenseCategoryListPageInner = () => {
         <ExpenseCategoryTable data={data ?? []} isLoading={isLoading} />
       </Container>
 
-      {/* Dialogs */}
       <CreateExpenseCategoryDialog />
       <EditExpenseCategoryDialog />
       <DeleteExpenseCategoryAlert onConfirm={onDeleteConfirm} />
-    </PageShell>
+    </>
   );
 };

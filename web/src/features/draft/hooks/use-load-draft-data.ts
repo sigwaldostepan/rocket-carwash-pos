@@ -26,6 +26,7 @@ export const useLoadDraftData = () => {
         toTransactionItems(draft.detail),
         draft.customer ?? undefined,
         draft.id,
+        draft.createdAt,
       );
     },
     [loadDraft],
